@@ -5,7 +5,6 @@ import collect_main from "./src/components_/collect_main.png";
 import competitions_main from "./src/components_/competitions_main.png";
 import free_main from "./src/components_/free_main.png";
 import friends_main from "./src/components_/friends_main.png";
-import main_logo from "./src/components_/main_logo.png";
 import modes_main from "./src/components_/modes_main.png";
 import planet_main from "./src/components_/planet_main.png";
 import "./src/components_/style_main.css"
