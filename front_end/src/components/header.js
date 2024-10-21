@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import header_logo2 from "./components/header_logo2.png"
+
 
 export default function Header() {
   return (
@@ -6,7 +8,7 @@ export default function Header() {
     <div class="container_header">
         <div class="line_header">
             <div class="logo_header">
-                <div class="img_logo_header"></div> 
+            <img class="img_logo_header" src={header_logo2} alt="Логотип монополии" width="144" height="114" /> 
                 <div class="name_logo_header">
                     <h1 class="name_text_header">Monopoly</h1>
                 </div>
