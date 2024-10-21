@@ -1,38 +1,172 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+*{
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  background-color: white;
+  font-family: "Roboto", serif;
+  font-weight: 100;
+  font-style: normal;
+  height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.name_text_header{
+  color: #fff;
+  -webkit-text-stroke: 2px orange;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.name_logo_header{
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.line_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.container_header{
+  background: radial-gradient(circle at 18.7% 37.8%, rgb(252, 238, 238) 0%, rgb(217, 240, 250) 90%);
+  margin-bottom: 3px;
+  border-bottom: 2px solid whitesmoke;;
+}
+
+.buttons_header{
+  display: flex;
+  gap: 100px;
+}
+
+.header_button{
+  color: black;
+  text-decoration: none;
+  font-weight:400;
+  padding: 15px;
+}
+
+.img_logo_header{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header_button_{
+  color: white;
+  text-decoration: none;
+  transition: 0.4s linear;
+  padding: 15px;
+  background-color: orange;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.img_main_logo{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header_button_:hover{
+  background-color: #ffc800;
+}
+
+.container_footer{
+  background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 222, 222) 0%, rgb(225, 234, 238) 90%); 
+}
+
+.container_main{
+  background: linear-gradient(to top, #fff1eb 0%, #e7f7ff 100%);
+  margin-bottom: 3px;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.list_container_cards{
+  margin-bottom: 50px;
+}
+
+.line_footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20%;
+  
+}
+
+.img_main_center{
+  display: flex;
+  justify-content: center;
+}
+
+
+.footer_text_end{
+  width: 70%;
+}
+
+.name_logo_footer{
+  width:90%;
+}
+
+.logo_footer{
+  margin-left: 100px;
+}
+
+.content_main_head{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center ;
+}
+
+
+.button_game_main{
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  transition: 0.4s linear;
+  padding: 20px;
+  background-color: orange;
+  border-radius: 9px;
+}
+
+.button_game_main:hover{
+  color:crimson
+}
+
+.list_container_cards{
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 50px
 }
 
-.App-link {
-  color: #61dafb;
+.card_container{
+  width: 25%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a{
+  color: cornflowerblue;
+}
+
+.content_main_footer .name_main_footer{
+  display: flex;
+  margin-bottom: 100px;
+  justify-content: center;
+}
+
+.logo_header{
+  display: flex;
+}
+
+.links_footer_list{
+  display: flex;
+  gap:10px;
+}
+
+.list_widgets_footer{
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }

@@ -7,8 +7,6 @@ body{
     height: 100vh;
 }
 
-
-
 .name_text_header{
     color: #fff;
     -webkit-text-stroke: 2px orange;
@@ -66,7 +64,7 @@ body{
 }
 
 .header_button_:hover{
-    background-color: lightsalmon;
+    background-color: #ffc800;
 }
 
 .container_footer{
