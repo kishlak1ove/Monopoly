@@ -1,8 +1,8 @@
 import React from 'react'
-import footer_icon from "./src/components_/footer_icon.png"
-import vk_footer from "./src/components_/vk_footer.png"
-import telegram_footer from "./src/components_/telegram_footer.png"
-import discord_footer from "./src/components_/discord_footer.png"
+import footer_icon from "../components_/footer_icon.png"
+import vk_footer from "../components_/vk_footer.png"
+import telegram_footer from "../components_/telegram_footer.png"
+import discord_footer from "../components_/discord_footer.png"
 
 
 export default function Footer() {
