@@ -1,12 +1,12 @@
 import React from 'react';
-import main_logo from "../src/components_/main_logo.png";
-import achiev_main from "../src/components_/achiev_main.png";
-import collect_main from "../src/components_/collect_main.png";
-import competitions_main from "../src/components_/competitions_main.png";
-import free_main from "../src/components_/free_main.png";
-import friends_main from "../src/components_/friends_main.png";
-import modes_main from "../src/components_/modes_main.png";
-import planet_main from "../src/components_/planet_main.png";
+import main_logo from "../components_/main_logo.png";
+import achiev_main from "../components_/achiev_main.png";
+import collect_main from "../components_/collect_main.png";
+import competitions_main from "../components_/competitions_main.png";
+import free_main from "../components_/free_main.png";
+import friends_main from "../components_/friends_main.png";
+import modes_main from "../components_/modes_main.png";
+import planet_main from "../components_/planet_main.png";
 
 export default function Main() {
   return (
