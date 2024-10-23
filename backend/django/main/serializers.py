@@ -36,11 +36,6 @@ class ChanceSerializer(serializers.ModelSerializer):
         model = Chance
         fields = "__all__"
 
-class PrisonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prison
-        fields = "__all__"
-
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room

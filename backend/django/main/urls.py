@@ -2,7 +2,6 @@ from django.urls import path, include, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import permissions
 
-from .views import *
 from .routers import *
 
 class CoreSpectacularAPIView(SpectacularAPIView):
@@ -20,16 +19,14 @@ class CoreSpectacularAPIView(SpectacularAPIView):
 
 
 urlpatterns = [
-    path('schema/', CoreSpectacularAPIView.as_view(), name='init_schema'),
-    path('swagger/', SpectacularSwaggerView.as_view(url_name='init_schema'), name='init_swagger'),
+    path('schema/', CoreSpectacularAPIView.as_view(), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
 
-    path('Room/', include(router_Room.urls)),
-    path('Player/', include(router_Player.urls)),
-    path('Board/', include(router_Board.urls)),
-    path('Game/', include(router_Game.urls)),
-    path('Chance/', include(router_Chance.urls)),
-    path('Prison/', include(router_Prison.urls)),
-    path('Realty/', include(router_Realty.urls)),
-    path('Invite/', include(router_Invite.urls)),
-
+    path('', include(router_room.urls)),
+    path('', include(router_player.urls)),
+    path('', include(router_board.urls)),
+    path('', include(router_game.urls)),
+    path('', include(router_chance.urls)),
+    path('', include(router_realty.urls)),
+    path('', include(router_invite.urls)),
 ]

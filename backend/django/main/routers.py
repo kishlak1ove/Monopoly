@@ -1,28 +1,24 @@
 from rest_framework.routers import SimpleRouter
 
-from main.views import RoomViewSet, PlayerViewSet, GameViewSet, BoardViewSet, ChanceViewSet, PrisonViewSet, \
-    RealtyViewSet, InviteViewSet
+from .views import *
 
-router_Room = SimpleRouter()
-router_Room.register(r'Room', RoomViewSet, )
+router_room = SimpleRouter()
+router_room.register(r'room', RoomViewSet, )
 
-router_Player = SimpleRouter()
-router_Player.register(r'Player', PlayerViewSet, )
+router_player = SimpleRouter()
+router_player.register(r'player', PlayerViewSet, )
 
-router_Game = SimpleRouter()
-router_Game.register(r'Game', GameViewSet, )
+router_game = SimpleRouter()
+router_game.register(r'game', GameViewSet, )
 
-router_Board = SimpleRouter()
-router_Board.register(r'Board', BoardViewSet, )
+router_board = SimpleRouter()
+router_board.register(r'board', BoardViewSet, )
 
-router_Chance = SimpleRouter()
-router_Chance.register(r'Chance', ChanceViewSet, )
+router_chance = SimpleRouter()
+router_chance.register(r'chance', ChanceViewSet, )
 
-router_Prison = SimpleRouter()
-router_Prison.register(r'Prison', PrisonViewSet, )
+router_realty = SimpleRouter()
+router_realty.register(r'realty', RealtyViewSet, )
 
-router_Realty = SimpleRouter()
-router_Realty.register(r'Realty', RealtyViewSet, )
-
-router_Invite = SimpleRouter()
-router_Invite.register(r'Invite', InviteViewSet, )
+router_invite = SimpleRouter()
+router_invite.register(r'invite', InviteViewSet, )
