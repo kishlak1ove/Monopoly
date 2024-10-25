@@ -7,10 +7,11 @@ import free_main from "../components_/free_main.png";
 import friends_main from "../components_/friends_main.png";
 import modes_main from "../components_/modes_main.png";
 import planet_main from "../components_/planet_main.png";
+import "./style_main.css"
 
 export default function Main() {
   return (
-    <main>
+    <main>  
         <div class="container_main">
             <div class="content_main">
                 <div class="content_main_head">
@@ -26,39 +27,39 @@ export default function Main() {
                     <div class="list_container_cards">
                         <div class="card_container">
                             <img class="img_container_main" src={free_main} width="180" height="180" alt="Бесплатно" />
-                            <h2 class="h_container_main">Это бесплатно!</h2>
+                            <h2>Это бесплатно!</h2>
                             <div>Просто <a href="">создайте аккаунт</a> и начните играть — никаких подписок и платежей.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={modes_main} width="180" height="180" alt="Режимы" />
-                            <h2 class="h_container_main">Множество режимов</h2>
+                            <h2>Множество режимов</h2>
                             <div>Мы создали множество режимов с уникальными механиками, в которых вы всегда испытаете что-то новое.</div>
                             <br />
                             <div>А классические правила были улучшены, чтобы было интереснее играть в онлайне.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={competitions_main} width="180" height="180" alt="Соревнования" />
-                            <h2 class="h_container_main">Соревнования</h2>
+                            <h2>Соревнования</h2>
                             <div>Играйте в Соревновательном режиме, чтобы получить звание и поднимать его с каждой победой.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={friends_main} width="180" height="180" alt="Друзья" />
-                            <h2 class="h_container_main">Новые друзья</h2>
+                            <h2>Новые друзья</h2>
                             <div>Находите интересных вам игроков и добавляйте их в друзья. Общайтесь в личных сообщениях, обсуждая новые тактики — ну или делитесь новыми мемами.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={collect_main} width="180" height="180" alt="Коллекционирование" />
-                            <h2 class="h_container_main">Коллекционирование</h2>
+                            <h2>Коллекционирование</h2>
                             <div>У нас имеется множество <a href="">предметов</a>, некоторые из которых очень редкие. Соберите себе коллекцию из того, что вам больше нравится!</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={planet_main} width="180" height="180" alt="Играть везде" />
-                            <h2 class="h_container_main">Играйте где угодно</h2>
+                            <h2>Играйте где угодно</h2>
                             <div>Вы можете играть на любом устройстве, где есть браузер — хоть на компьютере из дома, хоть на телефоне, пока едете в метро.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={achiev_main} width="180" height="180" alt="Достижения" />
-                            <h2 class="h_container_main">Получайте доостижения</h2>
+                            <h2>Получайте доостижения</h2>
                             <div>Вы можете получать достижения, за которые вам выплачивается награда.</div>
                         </div>
                     </div>
@@ -68,3 +69,5 @@ export default function Main() {
     </main>
   )
 }
+
+export { Main }

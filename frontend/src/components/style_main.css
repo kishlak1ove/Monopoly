@@ -1,0 +1,60 @@
+.img_main_logo{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+.container_main{
+    background: linear-gradient(to top, #fff1eb 0%, #e7f7ff 100%);
+    margin-bottom: 3px;
+    border-bottom: 2px solid whitesmoke;
+}
+
+.list_container_cards{
+    margin-bottom: 50px;
+  }
+
+.img_main_center{
+    display: flex;
+    justify-content: center;
+}
+  
+.content_main_head{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 20px;
+  }
+
+  .button_game_main{
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.4s linear;
+    padding: 20px;
+    background-color: orange;
+    border-radius: 9px;
+  }
+
+  .button_game_main:hover{
+    color:crimson
+  }
+
+  .list_container_cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px
+  }
+
+  .card_container{
+    width: 25%;
+  }
+
+  .content_main_footer .name_main_footer{
+    display: flex;
+    margin-bottom: 100px;
+    justify-content: center;
+  }
+
+  
