@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "./style_Registr.css"
 
-export default function Registr() {
+export default function Registr_() {
   return (
 <div class="fake_body_reg">
   <div class="container">
@@ -34,4 +34,4 @@ export default function Registr() {
   )
 }
 
-export { Registr }
+export { Registr_ }

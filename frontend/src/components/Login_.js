@@ -5,7 +5,7 @@ import validation from './Validation'
 
 
 
-export default function Login() {
+export default function Login_() {
 
     const [values, setValues] = useState({
         email: "",
@@ -62,4 +62,4 @@ export default function Login() {
   )
 }
 
-export { Login }
+export { Login_ }
