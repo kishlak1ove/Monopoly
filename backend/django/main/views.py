@@ -22,7 +22,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = PlayerSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -38,7 +38,7 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = GameSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BoardViewSet(viewsets.ModelViewSet):
@@ -54,7 +54,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = BoardSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -76,7 +76,7 @@ class RoomViewSet(viewsets.ModelViewSet):
     #     },
     # )
     def list(self, request, *args, **kwargs):
-        serializer = RoomSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ChanceViewSet(viewsets.ModelViewSet):
@@ -92,7 +92,7 @@ class ChanceViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = ChanceSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RealtyViewSet(viewsets.ModelViewSet):
@@ -108,7 +108,7 @@ class RealtyViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = RealtySerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class InviteViewSet(viewsets.ModelViewSet):
@@ -124,5 +124,5 @@ class InviteViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = InviteSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
