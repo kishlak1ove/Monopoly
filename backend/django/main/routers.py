@@ -11,9 +11,6 @@ router_player.register(r'player', PlayerViewSet, )
 router_game = SimpleRouter()
 router_game.register(r'game', GameViewSet, )
 
-router_board = SimpleRouter()
-router_board.register(r'board', BoardViewSet, )
-
 router_realty = SimpleRouter()
 router_realty.register(r'realty', RealtyViewSet, )
 
