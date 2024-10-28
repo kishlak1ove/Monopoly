@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 # Игрок
 class Player(models.Model):
     # пользователь, имя, счёт, позиция, фигура, под арестом ли
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     score = models.IntegerField(default=5000)
     position = models.IntegerField(default=0)
@@ -56,28 +56,8 @@ class Realty(models.Model):
     owner = models.ForeignKey(Player, on_delete=models.CASCADE, blank=True, null=True)
     price = models.IntegerField()
 
-# Карточка "Шанс"
-class Chance(models.Model):
-    class Effect(models.TextChoices):
-        increase_500 = 'прибыль_500', 'Прибыль_500'
-        increase_1000 = 'прибыль_1000', 'Прибыль_1000'
-        decrease_500 = 'штраф_500', 'Штраф_500'
-
-    effect = models.CharField(max_length=20, choices=Effect.choices)
-
-    def apply_to_player(self, player: Player):
-        # Применяет эффект карточки к игроку
-        if self.effect == self.Effect.INCREASE_500:
-            player.score += 500
-        elif self.effect == self.Effect.INCREASE_1000:
-            player.score += 1000
-        elif self.effect == self.Effect.DECREASE_500:
-            player.score -= 500
-        player.save()
-
 # Игровая доска
 class Board(models.Model):
-    # игра, список недвижимостей, список карточек "Шанс"
+    # игра, список недвижимостей
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     realty = models.ManyToManyField(Realty, blank=True)
-    chance = models.ManyToManyField(Chance, blank=True)

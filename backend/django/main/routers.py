@@ -14,9 +14,6 @@ router_game.register(r'game', GameViewSet, )
 router_board = SimpleRouter()
 router_board.register(r'board', BoardViewSet, )
 
-router_chance = SimpleRouter()
-router_chance.register(r'chance', ChanceViewSet, )
-
 router_realty = SimpleRouter()
 router_realty.register(r'realty', RealtyViewSet, )
 

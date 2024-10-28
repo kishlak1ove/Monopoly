@@ -26,7 +26,6 @@ urlpatterns = [
     path('', include(router_player.urls)),
     path('', include(router_board.urls)),
     path('', include(router_game.urls)),
-    path('', include(router_chance.urls)),
     path('', include(router_realty.urls)),
     path('', include(router_invite.urls)),
 ]
