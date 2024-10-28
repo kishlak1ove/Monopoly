@@ -21,11 +21,6 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = "__all__"
 
-class BoardSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Board
-        fields = "__all__"
-
 class RealtySerializer(serializers.ModelSerializer):
     class Meta:
         model = Realty

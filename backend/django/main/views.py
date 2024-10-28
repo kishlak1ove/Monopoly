@@ -41,22 +41,6 @@ class GameViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class BoardViewSet(viewsets.ModelViewSet):
-    queryset = Board.objects.all()
-    serializer_class = BoardSerializer
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response()
-
-    def list(self, request, *args, **kwargs):
-        serializer = self.serializer_class(self.queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
