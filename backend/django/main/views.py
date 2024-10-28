@@ -22,7 +22,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = PlayerSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -38,7 +38,7 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = GameSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BoardViewSet(viewsets.ModelViewSet):
@@ -54,7 +54,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = BoardSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -76,38 +76,7 @@ class RoomViewSet(viewsets.ModelViewSet):
     #     },
     # )
     def list(self, request, *args, **kwargs):
-        serializer = RoomSerializer()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class ChanceViewSet(viewsets.ModelViewSet):
-    queryset = Chance.objects.all()
-    serializer_class = ChanceSerializer
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response()
-
-    def list(self, request, *args, **kwargs):
-        serializer = ChanceSerializer()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class PrisonViewSet(viewsets.ModelViewSet):
-    queryset = Prison.objects.all()
-    serializer_class = PrisonSerializer
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response()
-
-    def list(self, request, *args, **kwargs):
-        serializer = PrisonSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RealtyViewSet(viewsets.ModelViewSet):
@@ -123,12 +92,12 @@ class RealtyViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = RealtySerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class InviteViewSet(viewsets.ModelViewSet):
     queryset = Invite.objects.all()
-    serializer_class = Invite
+    serializer_class = InviteSerializer
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -139,5 +108,5 @@ class InviteViewSet(viewsets.ModelViewSet):
         return Response()
 
     def list(self, request, *args, **kwargs):
-        serializer = InviteSerializer()
+        serializer = self.serializer_class(self.queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

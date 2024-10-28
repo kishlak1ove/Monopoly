@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djangoMonopoly.urls'
+ROOT_URLCONF = 'monopoly.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangoMonopoly.wsgi.application'
+WSGI_APPLICATION = 'monopoly.wsgi.application'
 
 
 # Database

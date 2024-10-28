@@ -31,16 +31,6 @@ class RealtySerializer(serializers.ModelSerializer):
         model = Realty
         fields = "__all__"
 
-class ChanceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chance
-        fields = "__all__"
-
-class PrisonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prison
-        fields = "__all__"
-
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
