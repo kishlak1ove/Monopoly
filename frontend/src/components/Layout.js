@@ -19,10 +19,10 @@ export default function Layout() {
                       </div>
                   </div>
                   <div class="buttons_header">
-                      <a class="header_button_" href="">Поиск игр</a>
-                      <a class="header_button" href="">Просмотр игр</a>
-                      <a class="header_button" href="">Магазин</a>
-                      <a class="header_button" href="">Достижения</a>
+                      <Link class="header_button_" to="*">Поиск игр</Link>
+                      <Link class="header_button" to="*">Просмотр игр</Link>
+                      <Link class="header_button" to="*">Магазин</Link>
+                      <Link class="header_button" to="*">Достижения</Link>
                   </div>
                   <div class="login_button_header">
                       <Link class="header_button_" to="/login">Войти</Link>
@@ -62,9 +62,9 @@ export default function Layout() {
                       <div class="container_widgets_footer">
                           <h3>Соцсети</h3>
                           <div class="list_widgets_footer">
-                              <img src={vk_footer} width="30" height="30" alt="Вконтакте" />
-                              <img src={telegram_footer} width="30" height="30" alt="Телеграмм" />
-                              <img src={discord_footer} width="30" height="30" alt="Дискорд" />
+                              <Link to="https://vk.com"><img src={vk_footer} width="30" height="30" alt="Вконтакте" /></Link>
+                              <Link to="https://web.telegram.org" ><img src={telegram_footer} width="30" height="30" alt="Телеграмм" /></Link>
+                              <Link to="https://discord.com"><img src={discord_footer} width="30" height="30" alt="Дискорд" /></Link>
                           </div>
                           <h5 class="footer_text_end">Подписывайтесь на Монополию в соцсетях, чтобы быть в курсе обновлений игры.</h5>
                       </div>

@@ -8,6 +8,7 @@ import friends_main from "../components_/friends_main.png";
 import modes_main from "../components_/modes_main.png";
 import planet_main from "../components_/planet_main.png";
 import "./style_main.css"
+import { Link } from "react-router-dom"
 
 export default function Main() {
   return (
@@ -50,7 +51,7 @@ export default function Main() {
                         <div class="card_container">
                             <img class="img_container_main" src={collect_main} width="180" height="180" alt="Коллекционирование" />
                             <h2>Коллекционирование</h2>
-                            <div>У нас имеется множество <a href="">предметов</a>, некоторые из которых очень редкие. Соберите себе коллекцию из того, что вам больше нравится!</div>
+                            <div>У нас имеется множество <Link to="*">предметов</Link>, некоторые из которых очень редкие. Соберите себе коллекцию из того, что вам больше нравится!</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={planet_main} width="180" height="180" alt="Играть везде" />

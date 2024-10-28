@@ -1,0 +1,14 @@
+version: "3.8"
+
+networks:
+  dev:
+
+services:
+  
+  frontend:
+  container_name: frontend
+  build:
+    context: ./frontend
+    dockerfile: Dockerfile
+  networks:
+    - dev
