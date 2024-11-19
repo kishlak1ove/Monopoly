@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-)64!w(oh9df4d+3t$ytl2)w-a*+(5u-pb$9kb=+5k@)wic%31l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '192.168.1.101',
+]
 
 
 # Application definition
@@ -38,9 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'main',
     'drf_spectacular',
-    # 'snippets',
+    'main',
+    'usermanager',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+AUTH_USER_MODEL = 'usermanager.User'
