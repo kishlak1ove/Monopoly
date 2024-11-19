@@ -13,7 +13,7 @@ class Room(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_rooms')
     name = models.CharField(max_length=160, blank=True)
     init_score = models.IntegerField(default=3000)
-    is_private = models.BooleanField(default=False)
+    is_private = models.BooleanField(default=True)
     player_count = models.IntegerField(default=4)
 
     def save(self, *args, **kwargs):
@@ -29,7 +29,7 @@ class Player(models.Model):
     # пользователь, имя, счёт, позиция, фигура, под арестом ли
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    score = models.IntegerField(default=0)
+    score = models.IntegerField(default=3000)
     position = models.IntegerField(default=0)
     figure = models.CharField(max_length=150)
     is_arrested = models.BooleanField(default=False)
@@ -59,9 +59,10 @@ class Game(models.Model):
 
 # Недвижимость
 class Realty(models.Model):
-    # Аренда, наименование недвижимости, владелец, стоимость
+    # Игра, аренда, номер на игровом поле, наименование недвижимости, владелец, стоимость
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     rent = models.IntegerField()
+    position = models.IntegerField()
     name = models.CharField(max_length=150)
     owner = models.ForeignKey(Player, on_delete=models.SET_NULL, blank=True, null=True)
     price = models.IntegerField()
