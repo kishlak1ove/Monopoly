@@ -134,32 +134,3 @@ class GameViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
-
-    # @extend_schema(
-    #     description='Создание игры через query',
-    #     methods=['POST'],
-    #     responses={
-    #         status.HTTP_201_CREATED: OpenApiResponse(
-    #             description='Игра создана',
-    #             response=serializer_class
-    #         ),
-    #         status.HTTP_400_BAD_REQUEST: OpenApiResponse(
-    #             description='Bad request'
-    #         )
-    #     },
-    #     parameters=parameters(True)
-    # )
-    # def create(self, request, *args, **kwargs):
-    #     query = request.query_params
-    #     gametime = query.get('gametime')
-    #     steptime = query.get('steptime')
-    #     room = query.get('room')
-    #     serializer = GameSerializer(
-    #         data={
-    #             'gametime': gametime,
-    #             'steptime':steptime,
-    #             'room':room
-    #         }
-    #     )
-    #     serializer.is_valid(raise_exception=True)
-    #     return super().create(serializer, *args, **kwargs)
