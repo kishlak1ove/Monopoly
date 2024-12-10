@@ -1,9 +1,13 @@
 from rest_framework import viewsets, status
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
+from ..controllers.controller_invite import *
 from ..serializers import InviteSerializer
-from ..models import Invite
+from ..models import Invite, Room
+
 
 @extend_schema(tags=['Invite'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 class InviteViewSet(viewsets.ModelViewSet):
@@ -23,15 +27,66 @@ class InviteViewSet(viewsets.ModelViewSet):
         }
     )
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        user = request.user
+        room_id = request.query_params.get('room')
+
+        try:
+            room = Room.objects.get(id=room_id)
+            response = create_invite(room, user)
+            data = self.get_serializer(response).data
+            return Response(data, status=status.HTTP_201_CREATED)
+        except Room.DoesNotExist:
+            return Response({'error': 'Комната не найдена'},status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def accept(self, request, *args, **kwargs):
+        invite_id = kwargs.get('pk')
+        print(invite_id)
+        try:
+            invite = Invite.objects.get(id=invite_id)
+            response, code = accept_invite(invite)
+            return Response(response, status=code)
+        except Invite.DoesNotExist:
+            return Response({'error': 'Приглашение не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
+    @action(methods=['GET'], detail=True)
+    def denied(self, request, *args, **kwargs):
+        invite_id = kwargs.get('pk')
+        try:
+            invite = Invite.objects.get(id=invite_id)
+            response, code = denied_invite(invite)
+            return Response(response, status=code)
+        except Invite.DoesNotExist:
+            return Response({'error': 'Приглашение не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description='Удаление приглашения',
+        responses={
+            status.HTTP_204_NO_CONTENT: OpenApiResponse(
+                description='Приглашение удалено успешно',
+            ),
+            status.HTTP_404_NOT_FOUND: OpenApiResponse(
+                description='Приглашение не найдено',
+            )
+        }
+    )
+    def destroy(self, request, *args, **kwargs):
+        invite_id = kwargs.get('pk')
+        try:
+            invite = Invite.objects.get(id=invite_id)
+            response, code = delete_invite(invite)
+            return Response(response, status=code)
+        except Invite.DoesNotExist:
+            return Response({'error': 'Приглашение не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
     @extend_schema(
         description='Список всех существующих приглашений',
         responses={
             status.HTTP_200_OK: OpenApiResponse(
                 description = 'Successful response',
-                response = serializer_class(many=True)
+                response = serializer_class
             )
-        },
+        }
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
@@ -77,16 +132,3 @@ class InviteViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
-    @extend_schema(
-        description='Удаление приглашения',
-        responses={
-            status.HTTP_204_NO_CONTENT: OpenApiResponse(
-                description='Приглашение удалено успешно',
-            ),
-            status.HTTP_404_NOT_FOUND: OpenApiResponse(
-                description='Приглашение не найдено',
-            )
-        },
-    )
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)

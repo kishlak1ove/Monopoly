@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime, timedelta
 
 from usermanager.models import User
 
@@ -12,9 +13,9 @@ class Room(models.Model):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.incomplete)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_rooms')
     name = models.CharField(max_length=160, blank=True)
-    init_score = models.IntegerField(default=3000)
+    init_score = models.PositiveIntegerField(default=3000)
     is_private = models.BooleanField(default=True)
-    player_count = models.IntegerField(default=4)
+    player_count = models.PositiveIntegerField(default=4)
 
     def save(self, *args, **kwargs):
         if not self.name:
@@ -35,7 +36,7 @@ class Player(models.Model):
     is_arrested = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 # Приглашение в комнату
 class Invite(models.Model):
@@ -51,10 +52,28 @@ class Invite(models.Model):
 
 # Игра
 class Game(models.Model):
-    # время игры, время хода, комната
     gametime = models.FloatField(default=30)
     steptime = models.FloatField(default=15)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Game in {self.room.name}"
+
+    def calculate_end_time(self):
+        if self.start_time:
+            return self.start_time + timedelta(minutes=self.gametime)
+        return None
+
+    def is_time_over(self):
+        if self.end_time:
+            return datetime.now() >= self.end_time
+        if self.start_time:
+            return datetime.now() >= self.calculate_end_time()
+        return False
+
 
 
 # Недвижимость

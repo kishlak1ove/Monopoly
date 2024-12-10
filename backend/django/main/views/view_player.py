@@ -1,11 +1,15 @@
 from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
 
+from usermanager.models import User
+from ..controllers.controller_player import *
 from ..serializers import PlayerSerializer
-from ..models import Player
+from ..models import Player, Room, Realty
 
-@extend_schema(tags=['Player'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
+@extend_schema(tags=['Player'])
 class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
@@ -23,7 +27,74 @@ class PlayerViewSet(viewsets.ModelViewSet):
         }
     )
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        user = request.user
+        room_id = request.data.get('room')
+        try:
+            room = Room.objects.get(pk=room_id)
+            response = create_player(user, room)
+            data = self.get_serializer(response).data
+            return Response(data, status=status.HTTP_201_CREATED)
+        except (User.DoesNotExist, Room.DoesNotExist):
+            return Response({'error':'Пользователи или комната не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description='Движение игрока'
+    )
+    @action(methods=['patch'], detail=True)
+    def move(self, request, *args, **kwargs):
+        user = request.user
+        try:
+            player = Player.objects.filter(user=user).first()
+            response, code = move_player(player)
+            return Response(response, status=code)
+        except (Player.DoesNotExist):
+            return Response({'error':'Игрок не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description='Покупка недвижимости игроком'
+    )
+    @action(methods=['patch'], detail=True)
+    def buy(self, request, *args, **kwargs):
+        player_id = kwargs.get('pk')
+        realty_id = request.data.get('realty')
+        try:
+            player = Player.objects.get(id=player_id)
+            realty = Realty.objects.get(id=realty_id)
+            response, code = buy_realty(realty, player)
+            return Response(response, status=code)
+        except (Player.DoesNotExist, Realty.DoesNotExist):
+            return Response({'error': 'Игрок или недвижимость не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description='Покупка недвижимости игроком'
+    )
+    @action(methods=['patch'], detail=True)
+    def sell(self, request, *args, **kwargs):
+        player_id = kwargs.get('pk')
+        realty_id = request.data.get('realty')
+
+        try:
+            player = Player.objects.get(id=player_id)
+            realty = Realty.objects.get(id=realty_id)
+            response, code = sell_realty(realty, player)
+            return Response(response, status=code)
+        except (Player.DoesNotExist, Realty.DoesNotExist):
+            return Response({'error': 'Игрок или недвижимость не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description='Освобождение игрока из тюрьмы'
+    )
+    @action(methods=['patch'], detail=True)
+    def unarrest(self, request, *args, **kwargs):
+        player_id = kwargs.get('pk')
+        print(player_id)
+        try:
+            player = Player.objects.get(id=player_id)
+            response, code = unarrest_player(player)
+            return Response(response, status=code)
+        except (Player.DoesNotExist):
+            return Response({'error': 'Игрок не найден'}, status=status.HTTP_404_NOT_FOUND)
+
     @extend_schema(
         description='Список всех существующих игроков',
         responses={
