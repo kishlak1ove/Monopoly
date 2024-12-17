@@ -6,9 +6,9 @@ from rest_framework.decorators import action
 import json
 
 from usermanager.models import User
-from ..serializers import RoomSerializer
-from ..models import Room
-from ..controllers.controller_room import *
+from .serializers import RoomSerializer
+from .models import Room
+from .controllers import *
 
 @extend_schema(tags=['Room'])
 class RoomViewSet(viewsets.ModelViewSet):

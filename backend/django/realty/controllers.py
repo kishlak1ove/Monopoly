@@ -1,6 +1,6 @@
 from rest_framework import status
 
-from ..models import Realty
+from .models import Realty
 
 # Недвижимости по дефолту будут иметь такие имена, цены и стоимость аренды.
 # Возможно в дальнейшем сделаем для игроков возможность кастомизировать недвижимости

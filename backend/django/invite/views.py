@@ -4,9 +4,10 @@ from drf_spectacular.utils import OpenApiResponse
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from ..controllers.controller_invite import *
-from ..serializers import InviteSerializer
-from ..models import Invite, Room
+from .controllers import *
+from .serializers import InviteSerializer
+from .models import Invite
+from room.models import Room
 
 
 @extend_schema(tags=['Invite'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])

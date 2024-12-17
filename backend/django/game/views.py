@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse, OpenApiParameter, OpenApiExample
 
-from ..serializers import GameSerializer
-from ..models import Game
+from .serializers import GameSerializer
+from .models import Game
 
 def examples(request_only = False):
     return [

@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
 
-from ..serializers import RealtySerializer
-from ..models import Realty
+from .serializers import RealtySerializer
+from .models import Realty
 
 @extend_schema(tags=['Realty'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 class RealtyViewSet(viewsets.ModelViewSet):

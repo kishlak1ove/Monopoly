@@ -1,13 +1,10 @@
 import pytest
-import json
 from rest_framework.test import APIClient
-from rest_framework import status
 
 from usermanager.models import User
-from ..models import Player, Game
-from ..controllers.controller_player import *
-from ..controllers.controller_room import *
-from ..controllers.controller_realty import *
+from backend.django.main.models import Game
+from backend.django.room.controllers import *
+from backend.django.realty.controllers import *
 
 @pytest.fixture
 def client():

@@ -1,8 +1,6 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
-from django.http import JsonResponse
 from rest_framework import viewsets, status
+from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
 import json
@@ -19,16 +17,16 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'Success'}, status=200)
+            return Response({'message': 'Success'}, status=200)
         else:
-            return JsonResponse({'message': 'Неверный логин или пароль'}, status=400)
-    return JsonResponse({'message': 'Invalid request method'}, status=400)
+            return Response({'message': 'Неверный логин или пароль'}, status=400)
+    return Response({'message': 'Invalid request method'}, status=400)
 
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        return JsonResponse({'message': 'Logout success'}, status=200)
-    return JsonResponse({'message': 'Invalid request method'}, status=400)
+        return Response({'message': 'Logout success'}, status=200)
+    return Response({'message': 'Invalid request method'}, status=400)
 
 def register_view(request):
     if request.method == 'POST':
@@ -39,14 +37,14 @@ def register_view(request):
 
         is_exists = User.objects.filter(username=username).exists()
         if is_exists:
-            return JsonResponse({'message': 'Такой пользователь уже существует'}, status=400)
+            return Response({'message': 'Такой пользователь уже существует'}, status=400)
         if not all([username, password, email]):
-            return JsonResponse({'message': 'Все поля обязательны'}, status=400)
+            return Response({'message': 'Все поля обязательны'}, status=400)
 
         user = User.objects.create_user(username, email, password)
         login(request, user)
-        return JsonResponse({'message': 'Success'}, status=201)
-    return JsonResponse({'message': 'Invalid request method'}, status=400)
+        return Response({'message': 'Success'}, status=201)
+    return Response({'message': 'Invalid request method'}, status=400)
 
 @extend_schema(tags=['User'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 class UserViewSet(viewsets.ModelViewSet):
