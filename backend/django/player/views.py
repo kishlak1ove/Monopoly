@@ -1,13 +1,13 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
 
 from usermanager.models import User
-from ..controllers.controller_player import *
-from ..serializers import PlayerSerializer
-from ..models import Player, Room, Realty
+from backend.django.player.controllers import *
+from backend.django.main.serializers import PlayerSerializer
+from backend.django.main.models import Player, Room, Realty
 
 @extend_schema(tags=['Player'])
 class PlayerViewSet(viewsets.ModelViewSet):

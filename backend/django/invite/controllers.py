@@ -1,7 +1,5 @@
-from rest_framework import status
-
-from ..models import Invite, Player
-from .controller_room import *
+from .models import Invite
+from room.controllers import *
 
 def create_invite(room, user):
     if Invite.objects.filter(room=room, user=user).exists():

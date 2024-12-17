@@ -1,10 +1,8 @@
 import pytest
-import json
-from rest_framework import status
 from rest_framework.test import APIClient
 
-from ..models import Room
-from ..controllers.controller_room import *
+from backend.django.main.models import Room
+from backend.django.room.controllers import *
 from usermanager.models import User
 
 @pytest.fixture
@@ -12,16 +10,20 @@ def client():
     return APIClient()
 @pytest.fixture
 def testuser():
-    return User.objects.create_user(username='testuser', email='test@example.com', password='psswrd')
+    return User.objects.create_user(
+        username='testuser',
+        email='test@example.com',
+        password='psswrd'
+    )
+
+@pytest.fixture
+def testroom(testuser):
+    return create_room(testuser)
 
 @pytest.fixture
 def testusers():
     return [User.objects.create_user(username=f'testuser{i}', email=f'abc{i}@example.ru', password='123')
             for i in range(1,4)]
-
-@pytest.fixture
-def testroom(testuser):
-    return create_room(testuser)
 
 @pytest.mark.django_db
 def test_create_room(client, testuser):

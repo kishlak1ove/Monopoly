@@ -1,7 +1,9 @@
 from rest_framework import status
 
-from .controller_realty import *
-from ..models import Player, Realty, Room
+from realty.controllers import *
+from .models import Player
+from room.models import Room
+from realty.models import Realty
 
 def get_player(id):
     return Player.objects.get(id=id)

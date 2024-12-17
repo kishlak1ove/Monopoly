@@ -1,9 +1,6 @@
-from django.http import JsonResponse
-from rest_framework import status
-from rest_framework.views import APIView
-
-from .controller_player import *
-from ..models import Room, Player
+from backend.django.player.controllers import *
+from player.models import Player
+from .models import Room
 
 def create_room(user):
     room = Room.objects.create(
