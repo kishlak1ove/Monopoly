@@ -1,14 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from .views import register_view, login_view, logout_view, UserViewSet
+from .views import logout_view, LoginView, RegisterView, UserViewSet
 
 router = SimpleRouter()
 router.register(r'user', UserViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
-    path('login/', login_view, name='login'),
-    path('register/', register_view, name='register'),
-    path('logout/', logout_view, name='logout'),
+    path('api/login/', LoginView.as_view(), name='login'),
+    path('api/register/', RegisterView.as_view(), name='register'),
+    path('api/logout/', logout_view, name='logout'),
 ]

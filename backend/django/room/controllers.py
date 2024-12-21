@@ -1,4 +1,4 @@
-from backend.django.player.controllers import *
+from player.controllers import *
 from player.models import Player
 from .models import Room
 

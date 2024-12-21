@@ -1,9 +1,9 @@
 import pytest
 from rest_framework.test import APIClient
 
-from backend.django.invite.controllers import *
-from backend.django.room.controllers import *
-from backend.django.main.models import Invite
+from invite.controllers import *
+from room.controllers import *
+from invite.models import Invite
 from usermanager.models import User
 
 @pytest.fixture

@@ -5,9 +5,9 @@ from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
 
 from usermanager.models import User
-from backend.django.player.controllers import *
-from backend.django.main.serializers import PlayerSerializer
-from backend.django.main.models import Player, Room, Realty
+from .controllers import *
+from .serializers import PlayerSerializer
+from .models import Player
 
 @extend_schema(tags=['Player'])
 class PlayerViewSet(viewsets.ModelViewSet):

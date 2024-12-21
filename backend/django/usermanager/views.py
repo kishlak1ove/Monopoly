@@ -3,24 +3,26 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
+from rest_framework.views import APIView
 import json
+from django.http import JsonResponse
 
 from .models import User
 from .serializers import UserSerializer
 
-def login_view(request):
-    if request.method == 'POST':
+class LoginView(APIView):
+    def post(request):
         data = json.loads(request.body)
         username = data.get('username')
         password = data.get('password')
-
+        
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
             return Response({'message': 'Success'}, status=200)
         else:
             return Response({'message': 'Неверный логин или пароль'}, status=400)
-    return Response({'message': 'Invalid request method'}, status=400)
+        # return Response({'message': 'Invalid request method'}, status=400)
 
 def logout_view(request):
     if request.method == 'POST':
@@ -28,12 +30,14 @@ def logout_view(request):
         return Response({'message': 'Logout success'}, status=200)
     return Response({'message': 'Invalid request method'}, status=400)
 
-def register_view(request):
-    if request.method == 'POST':
+class RegisterView(APIView):
+    def post(request):
+        print('OK')
         data = json.loads(request.body)
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
+        password_more = data.get('password_more')
 
         is_exists = User.objects.filter(username=username).exists()
         if is_exists:
@@ -44,7 +48,7 @@ def register_view(request):
         user = User.objects.create_user(username, email, password)
         login(request, user)
         return Response({'message': 'Success'}, status=201)
-    return Response({'message': 'Invalid request method'}, status=400)
+    # return Response({'message': 'Invalid request method'}, status=400)
 
 @extend_schema(tags=['User'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 class UserViewSet(viewsets.ModelViewSet):

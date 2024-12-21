@@ -1,8 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 
-from backend.django.main.models import Room
-from backend.django.room.controllers import *
+from room.models import Room
+from room.controllers import *
 from usermanager.models import User
 
 @pytest.fixture
