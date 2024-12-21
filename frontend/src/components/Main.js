@@ -1,13 +1,13 @@
 import React from 'react';
-import main_logo from "../components_/main_logo.png";
-import achiev_main from "../components_/achiev_main.png";
-import collect_main from "../components_/collect_main.png";
-import competitions_main from "../components_/competitions_main.png";
-import free_main from "../components_/free_main.png";
-import friends_main from "../components_/friends_main.png";
-import modes_main from "../components_/modes_main.png";
-import planet_main from "../components_/planet_main.png";
-import "./style_main.css"
+import main_logo from "../employ/main_logo.png";
+import achiev_main from "../employ/achiev_main.png";
+import collect_main from "../employ/collect_main.png";
+import competitions_main from "../employ/competitions_main.png";
+import free_main from "../employ/free_main.png";
+import friends_main from "../employ/friends_main.png";
+import modes_main from "../employ/modes_main.png";
+import planet_main from "../employ/planet_main.png";
+import "../styles/style_Main.css"
 import { Link } from "react-router-dom"
 
 export default function Main() {
@@ -15,10 +15,11 @@ export default function Main() {
     <main>  
         <div class="container_main">
             <div class="content_main">
+                <br></br>
                 <div class="content_main_head">
                     <h1>Приглашаем в Монополию.</h1>
-                    <h3>Это отличное место, чтобы поиграть с друзьями в легендарную настольную игру.</h3>
-                    <a class="button_game_main" href="">Начать игру</a>
+                    <h2>Это отличное место, чтобы поиграть с друзьями в легендарную настольную игру.</h2>
+                    <a class="button_game_main" href="/login">Начать игру</a>
                 </div>
                 <div class="img_main_center">
                     <img class="img_main_logo" src={main_logo} width = "373" height="459" />

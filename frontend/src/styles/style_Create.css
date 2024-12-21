@@ -1,0 +1,67 @@
+.room-setup {
+    background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 235, 235) 0%, rgb(191, 232, 249) 90%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content_main_head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.setup_form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.form_group {
+    margin-bottom: 15px;
+    width: 100%; 
+}
+
+.form_group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.setup_form input[type="text"],
+.setup_form input[type="number"],
+.setup_form select {
+    width: 100%;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+
+.setup_form select {
+    height: 44px;  
+}
+
+
+.button_game_create {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: orange;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s linear;
+}
+
+.button_game_create:hover {
+    color: crimson;
+}

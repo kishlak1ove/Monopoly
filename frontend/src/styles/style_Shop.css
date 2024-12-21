@@ -1,0 +1,62 @@
+.shop_container {
+    padding: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.skins_section {
+    padding: 20px;  
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 20px; 
+}
+
+
+.skin-grid {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 20px; 
+    margin-bottom: 40px;
+}
+
+.skin-card {
+    width: 220px; 
+    height: 300px;
+    background-color: #fff; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center; 
+    padding: 10px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.skin-image {
+    width: 100%; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 8px 8px 0 0; 
+}
+
+.current_amount {
+    font-size: 1.5em; 
+    color: #333; 
+    text-align: center; 
+    font-weight: bold; 
+}
+
+.shop_main_container{
+    background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 235, 235) 0%, rgb(191, 232, 249) 90%);
+    min-height: 100vh;
+}
+
+.amount_shop_player{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    gap: 5px;
+    width: 100%;
+}

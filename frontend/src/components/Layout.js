@@ -1,12 +1,12 @@
 import React from 'react'
-import header_logo2 from "../components_/header_logo2.png"
-import footer_icon from "../components_/footer_icon.png"
-import vk_footer from "../components_/vk_footer.png"
-import telegram_footer from "../components_/telegram_footer.png"
-import discord_footer from "../components_/discord_footer.png"
+import header_logo2 from "../employ/header_logo2.png"
+import footer_icon from "../employ/footer_icon.png"
+import vk_footer from "../employ/vk_footer.png"
+import telegram_footer from "../employ/telegram_footer.png"
+import discord_footer from "../employ/discord_footer.png"
 import { Link, Outlet } from "react-router-dom"
-import "./style_Layout.css"
-
+import "../styles/style_Layout.css"
+import player_img from "../employ/player_icon.png"
 export default function Layout() {
   return (
     <><header>
@@ -20,9 +20,10 @@ export default function Layout() {
                   </div>
                   <div class="buttons_header">
                       <Link class="header_button_" to="*">Поиск игр</Link>
-                      <Link class="header_button" to="*">Просмотр игр</Link>
-                      <Link class="header_button" to="*">Магазин</Link>
-                      <Link class="header_button" to="*">Достижения</Link>
+                      <Link class="header_button_" to="/create">Создать игру</Link>
+                      <Link class="header_button" to="/shop">Магазин</Link>
+                      <Link class="header_button" to="/achiev">Достижения</Link>
+                      <Link class="img_player" to="/player"><img src={player_img} width="40px" height="40px"></img></Link>
                   </div>
                   <div class="login_button_header">
                       <Link class="header_button_" to="/login">Войти</Link>

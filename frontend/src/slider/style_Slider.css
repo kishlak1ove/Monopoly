@@ -1,0 +1,42 @@
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 600px; /* Ширина контейнера */
+  margin: auto; /* Центрирование слайдера */
+  overflow: hidden; /* Скрывает переполнение */
+  border: 2px solid #ccc; /* Добавить рамку, если нужно */
+  border-radius: 10px; /* Закругление углов */
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-image {
+  width: 100%; /* Изображение заполняет контейнер */
+  height: auto; /* Высота автоматически по пропорциям */
+  max-height: 400px; /* Установить максимальную высоту изображения */
+}
+
+.arrow {
+  background-color: transparent; /* Прозрачный фон */
+  border: none; /* Без рамки */
+  font-size: 24px; /* Размер шрифта для стрелок */
+  cursor: pointer; /* Указатель-курсор */
+  position: absolute;
+  top: 50%; /* Центрирование по вертикали */
+  transform: translateY(-50%); /* Центрирование по вертикали */
+  z-index: 10; /* Высший уровень для стрелок */
+}
+
+.left {
+  left: 10px; /* Отступ от левого края */
+}
+
+.right {
+  right: 10px; /* Отступ от правого края */
+}

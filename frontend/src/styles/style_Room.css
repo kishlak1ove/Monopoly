@@ -1,0 +1,76 @@
+.room-container {
+    background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 235, 235) 0%, rgb(191, 232, 249) 90%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.room-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.room-settings {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room-settings ul {
+    padding-left: 0; 
+}
+
+.room-settings li {
+    margin-bottom: 10px; 
+}
+
+.players-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.player-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 120px;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 20px; 
+}
+
+.player-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.button_start_game {
+    padding: 10px 20px;
+    background-color: orange;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s linear;
+}
+
+.button_start_game:hover {
+    color: crimson;
+}

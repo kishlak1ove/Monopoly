@@ -57,4 +57,7 @@
     justify-content: center;
   }
 
-  
+  .img_player{
+    display: flex;
+    align-items: center;
+  }
