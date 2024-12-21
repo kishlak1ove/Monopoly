@@ -1,0 +1,35 @@
+.game-search-container {
+    padding: 20px;
+    background-color: #ffffff; /* Белый фон */
+    border-radius: 8px; /* Закругление углов для более приятного внешнего вида */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для глубины */
+}
+
+.room-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.room-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.room-item h3 {
+    margin: 0;
+}
+
+.join-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.join-button:hover {
+    background-color: #0056b3;
+}

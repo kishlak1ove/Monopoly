@@ -11,6 +11,7 @@ import { Achievements } from "./components/Achievements"
 import { Player } from "./components/Player"
 import { Room } from "./components/Room"
 import { Game } from "./components/Game"
+import { Search } from "./components/Search"
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
               <Route path='*' element={<Notfound />} />
               <Route path='room/:roomId/game' element={<Game />} />
               <Route path='room/:roomId' element={<Room />} />
+              <Route path='search' element={<Search />} />
           </Route>
         </Routes>
     </div>

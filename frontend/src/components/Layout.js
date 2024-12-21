@@ -19,7 +19,7 @@ export default function Layout() {
                       </div>
                   </div>
                   <div class="buttons_header">
-                      <Link class="header_button_" to="*">Поиск игр</Link>
+                      <Link class="header_button_" to="/search">Поиск игр</Link>
                       <Link class="header_button_" to="/create">Создать игру</Link>
                       <Link class="header_button" to="/shop">Магазин</Link>
                       <Link class="header_button" to="/achiev">Достижения</Link>
