@@ -2,9 +2,9 @@ import pytest
 from rest_framework.test import APIClient
 
 from usermanager.models import User
-from backend.django.main.models import Game
-from backend.django.room.controllers import *
-from backend.django.realty.controllers import *
+from game.models import Game
+from room.controllers import *
+from realty.controllers import *
 
 @pytest.fixture
 def client():

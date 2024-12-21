@@ -13,7 +13,6 @@ services:
     restart: always
     depends_on:
       - backend
-      - postgres
     networks:
       - dev
 
