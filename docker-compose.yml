@@ -6,8 +6,8 @@ services:
     container_name: nginx
     image: nginx:stable-alpine
     ports:
-      - "${NGINX_HTTP_PORT}:80"
-      - "${NGINX_HTTPS_PORT}:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
       - ./frontend/build:/usr/share/nginx/html
@@ -24,23 +24,20 @@ services:
       context: ./backend/django
       dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: ${POSTGRES_DB_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_NAME}
-      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres_user        
+      POSTGRES_PASSWORD: 123                
+      POSTGRES_DB: Monopoly_game            
+      POSTGRES_HOST: postgres                
+      POSTGRES_DB_PORT: 5432                
     working_dir: /usr/src/app/backend/django
     ports:
-      - "8000:8000"
-    env_file:
-      - backend/django/docker/env/.env.dev  
+      - "8000:8000"  
     volumes:
-      - ./backend:/usr/src/app
+      - ./backend/django:/usr/src/app
     depends_on:
       - postgres
       - redis
-    command: sh -c "python manage.py makemigrations &&
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     networks:
       - dev
 
@@ -56,15 +53,13 @@ services:
     image: postgres:alpine
     container_name: postgres
     restart: always
-    env_file:
-      - backend/django/docker/env/.env.dev  
     environment:
-      POSTGRES_USER: ${POSTGRES_DB_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_NAME}
-      POSTGRES_HOST: ${POSTGRES_DB_HOST}
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: Monopoly_game
+      POSTGRES_HOST: localhost  
     ports:
-      - "${POSTGRES_DB_PORT}:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data/
     networks:
@@ -84,14 +79,12 @@ services:
     hostname: redis-commander
     image: ghcr.io/joeferner/redis-commander:latest
     restart: always
-    env_file:
-      - backend/django/docker/env/.env.dev 
     environment:
       REDIS_HOSTS: local:redis:6379
-      HTTP_USER: ${REDIS_COMMANDER_USER}
-      HTTP_PASSWORD: ${REDIS_COMMANDER_PASS}
+      HTTP_USER: redis_user         
+      HTTP_PASSWORD: redis_pass      
     ports:
-      - "${REDIS_COMMANDER_PORT}:8081"
+      - "8081:8081"  
     depends_on:
       - redis
     networks:
@@ -104,10 +97,12 @@ services:
     container_name: celery-worker
     restart: always
     working_dir: /usr/src/app/backend/django
-    env_file:
-      - backend/django/docker/env/.env.dev  
+    environment:
+      REDIS_LOCATION: redis://redis:6379/0
+      CELERY_BROKER_URL: amqp://rabbit_user:rabbit_pass@rabbitmq:5672//
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
     volumes:
-      - ./:/usr/src/app
+      - ./backend/django:/usr/src/app  
       - media:/app/media
     command: celery -A celery_app worker --loglevel=info
     depends_on:
@@ -124,10 +119,12 @@ services:
     container_name: celery-beat
     restart: always
     working_dir: /usr/src/app/backend/django
-    env_file:
-      - backend/django/docker/env/.env.dev 
+    environment:
+      REDIS_LOCATION: redis://redis:6379/0
+      CELERY_BROKER_URL: amqp://rabbit_user:rabbit_pass@rabbitmq:5672//
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
     volumes:
-      - ./:/usr/src/app
+      - ./backend/django:/usr/src/app  
       - media:/app/media
     depends_on:
       - redis
@@ -138,15 +135,14 @@ services:
       - dev
 
   rabbitmq:
-    image: rabbitmq:3.10-management-alpine
+    image: rabbitmq:3-management
     container_name: rabbitmq
-    hostname: rabbitmq
-    restart: always
-    env_file:
-      - backend/django/docker/env/.env.dev  
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit_user  
+      RABBITMQ_DEFAULT_PASS: rabbit_pass    
     ports:
-      - "${RABBITMQ_WEB_UI_PORT}:15672"
-      - "${RABBITMQ_PORT}:5672"
+      - "15672:15672"    
+      - "5672:5672"      
     networks:
       - dev
 
