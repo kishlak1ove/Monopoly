@@ -1,4 +1,5 @@
-version: '3.8'  
+networks:
+  dev:
 
 services:
   nginx:
@@ -37,6 +38,9 @@ services:
     depends_on:
       - postgres
       - redis
+    command: sh -c "python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     networks:
       - dev
 
@@ -95,7 +99,7 @@ services:
 
   celery-worker:
     build:
-      context: ./backend
+      context: ./backend/django
       dockerfile: Dockerfile
     container_name: celery-worker
     restart: always
@@ -115,7 +119,7 @@ services:
 
   celery-beat:
     build:
-      context: ./backend
+      context: ./backend/django
       dockerfile: Dockerfile
     container_name: celery-beat
     restart: always
@@ -145,9 +149,6 @@ services:
       - "${RABBITMQ_PORT}:5672"
     networks:
       - dev
-
-networks:
-  dev:
 
 volumes:
   pgdata:
