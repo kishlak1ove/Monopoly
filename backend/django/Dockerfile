@@ -8,13 +8,15 @@ RUN apk update && \
 
 RUN pip install --upgrade pip
 
-WORKDIR /backend/django/manage.py
-
 COPY ./requirements.txt .
+
 RUN pip install -r requirements.txt
 
-COPY . .
+WORKDIR /usr/src/app
+
+COPY . .    
 
 EXPOSE 8000
+
 
 CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
