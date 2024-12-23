@@ -96,7 +96,7 @@ services:
       dockerfile: Dockerfile
     container_name: celery-worker
     restart: always
-    working_dir: /usr/src/app/backend/django
+    working_dir: /usr/src/app/
     environment:
       REDIS_LOCATION: redis://redis:6379/0
       CELERY_BROKER_URL: amqp://rabbit_user:rabbit_pass@rabbitmq:5672//
@@ -104,7 +104,7 @@ services:
     volumes:
       - ./backend/django:/usr/src/app  
       - media:/app/media
-    command: celery -A backend.django.celery_app worker --loglevel=info
+    command: celery -A celery worker --loglevel=info
     depends_on:
       - redis
       - rabbitmq
@@ -118,7 +118,7 @@ services:
       dockerfile: Dockerfile
     container_name: celery-beat
     restart: always
-    working_dir: /usr/src/app/backend/django
+    working_dir: /usr/src/app/
     environment:
       REDIS_LOCATION: redis://redis:6379/0
       CELERY_BROKER_URL: amqp://rabbit_user:rabbit_pass@rabbitmq:5672//
@@ -130,7 +130,7 @@ services:
       - redis
       - rabbitmq
       - backend
-    command: celery -A celery_app beat --loglevel=info
+    command: celery -A celery beat --loglevel=info
     networks:
       - dev
 
