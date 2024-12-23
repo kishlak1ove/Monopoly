@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/v1/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
     path('api/v1/', include('game.urls')),
-    path('', include('usermanager.urls')),
+    path('api/', include('usermanager.urls')),
     path('', include('player.urls')),
     path('', include('room.urls'))
 ]
