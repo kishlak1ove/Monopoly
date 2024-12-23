@@ -25,5 +25,5 @@ urlpatterns = [
     path('api/v1/', include('game.urls')),
     path('api/', include('usermanager.urls')),
     path('', include('player.urls')),
-    path('', include('room.urls'))
+    path('api/', include('room.urls'))
 ]

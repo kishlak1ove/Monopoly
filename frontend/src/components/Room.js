@@ -16,11 +16,11 @@ export default function Room() {
     const { state } = location;
 
     const roomSettings = {
-        roomName: state?.roomName || 'Неизвестная комната',
-        maxPlayers: state?.maxPlayers || 0,
-        startingAmount: state?.startingAmount || 0,
+        roomName: state?.name || 'Неизвестная комната',
+        maxPlayers: state?.player_count || 0,
+        startingAmount: state?.init_score || 0,
         gameTime: state?.gameTime || 0,
-        isPrivate: state?.isPrivate || false,
+        isPrivate: state?.is_private || false,
     };
 
     const handleStartGame = () => {

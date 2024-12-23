@@ -3,11 +3,13 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
+from rest_framework.decorators import api_view
 import json
 
 from .models import User
 from .serializers import UserSerializer
 
+@api_view(['POST'])
 def login_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -22,12 +24,14 @@ def login_view(request):
             return Response({'message': 'Неверный логин или пароль'}, status=400)
     return Response({'message': 'Invalid request method'}, status=400)
 
+@api_view(['POST'])
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return Response({'message': 'Logout success'}, status=200)
     return Response({'message': 'Invalid request method'}, status=400)
 
+@api_view(['POST'])
 def register_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)

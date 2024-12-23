@@ -33,5 +33,11 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'password']
 
+    def has_module_perms(self, request):
+        return True
+    
+    def has_perm(self, request):
+        return True
+
     def __str__(self):
         return self.username

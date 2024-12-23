@@ -20,7 +20,7 @@ class Room(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.name:
-            self.name = f"{self.admin.name}'s room"
+            self.name = f"{self.admin.username}'s room"
         super().save(*args, **kwargs)
 
     def __str__(self):

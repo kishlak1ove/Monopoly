@@ -11,7 +11,7 @@ export default function Search() {
     useEffect(() => {
         const fetchRooms = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/rooms/');
+                const response = await axios.get('http://localhost:8000/api/room/');
                 setRooms(response.data);
             } catch (error) {
                 setError('Ошибка при загрузке комнат: ' + error.message);
@@ -37,7 +37,7 @@ export default function Search() {
                 rooms.map((room) => (
                     <li key={room.id} className="room-item">
                         <div>
-                            <h3>{room.roomName}</h3>
+                            <h3>{room.name}</h3>
                             <p>{room.isGameRunning ? 'Игра идет' : 'Ожидание игроков'}</p>
                             <p>Максимальное количество игроков: {room.maxPlayers}</p>
                             {room.isGameRunning && (

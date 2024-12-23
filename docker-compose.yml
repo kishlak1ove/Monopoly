@@ -41,12 +41,14 @@ services:
     networks:
       - dev
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    networks:
+  frontend: 
+    container_name: frontend 
+    build: 
+      context: ./frontend 
+      dockerfile: Dockerfile 
+    volumes: 
+      - ./frontend:/usr/src/app 
+    networks: 
       - dev
 
   postgres:
