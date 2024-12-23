@@ -10,11 +10,19 @@ export default function Registr_() {
   const [passwordMore, setPasswordMore] = useState('');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
+  const [username, setUsername] = useState(''); 
 
   const handleRegister = async (e) => {
       e.preventDefault();
       setMessage('');
       setErrors({});
+
+      // Валидация формы
+
+      if (!username){
+        setErrors((prev) => ({ ...prev, username: '*Пустое поле "Имя пользователя"' }));
+        return
+      }
 
       if (!email) {
         setErrors((prev) => ({ ...prev, email: '*Пустое поле "Электронная почта"' }));
@@ -62,6 +70,7 @@ export default function Registr_() {
 
       try {
         const response = await axios.post('http://localhost:8000/api/register/', {
+            username,
             email,
             password,
             password_more: passwordMore,
@@ -70,8 +79,13 @@ export default function Registr_() {
         setEmail('');
         setPassword('');
         setPasswordMore('');
+        setUsername('');
       } catch (error) {
         if (error.response && error.response.data) {
+
+            if (error.response.data.username) {
+                setErrors((prev) => ({ ...prev, username: error.response.data.username[0] }));
+            }
             if (error.response.data.email) {
                 setErrors((prev) => ({ ...prev, email: error.response.data.email[0] }));
             }
@@ -94,6 +108,9 @@ export default function Registr_() {
         <p>Пожалуйста, заполните поля ниже, чтобы создать учетную запись.</p>
         <hr />
         <form onSubmit={handleRegister}>
+        <label htmlFor="username"><b>Имя пользователя</b></label>
+        {errors.username && <span style={{ color: "red" }}>{errors.username}</span>}
+        <input className="input_email" type="text" placeholder="Введите имя пользователя" value={username} onChange={(e) => setUsername(e.target.value)} required />
         <label for="email"><b>Электронная почта</b></label>
         {errors.email && <span style={{color: "red"}}>{errors.email}</span>}
         <input class="input_email" type="email" placeholder="Введите электронную почту" value={email} onChange={(e) => setEmail(e.target.value)} required />

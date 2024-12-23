@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function Login_() {
 
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [message, setMessage] = useState('');
@@ -18,22 +19,16 @@ export default function Login_() {
         setMessage('');
         setErrors({});
 
-        if (!email) {
-            setErrors((prev) => ({ ...prev, email: '*Пустое поле "Электронная почта"' }));
+        if (!username) {
+            setErrors((prev) => ({ ...prev, username: '*Пустое поле "Имя пользователя"' }));
             return;
         }
 
         const cyrillicPattern = /[А-Яа-яЁё]/;
-        if (cyrillicPattern.test(email)) {
-            setErrors((prev) => ({ ...prev, email: '*Электронная почта не должна содержать кириллицу.' }));
+        if (cyrillicPattern.test(username)) {
+            setErrors((prev) => ({ ...prev, username: '*Имя не должно содержать кириллицу.' }));
             return;
         } 
-
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-            setErrors((prev) => ({ ...prev, email: '*Некорректный формат электронной почты' }));
-            return;
-        }
 
         if (!password) {
             setErrors((prev) => ({ ...prev, password: '*Пустое поле "Пароль"' }));
@@ -52,12 +47,12 @@ export default function Login_() {
 
         try {
             const response = await axios.post('http://localhost:8000/api/login/', {
-                email,
+                username,
                 password
             });
             setToken(response.data.token);
             setMessage('Вход успешно выполнен. Токен: ' + response.data.token);
-            setEmail('');
+            setUsername('');
             setPassword('');
         } catch (error) {
             if (error.response && error.response.data) {
@@ -79,9 +74,9 @@ export default function Login_() {
         <p>Пожалуйста, заполните поля ниже, чтобы войти в учетную запись.</p>
         <hr />
         <form onSubmit={handleLogin}>
-        <label htmlFor="email"><b>Электронная почта </b></label>
-        {errors.email && <span style={{color: "red"}}>{errors.email}</span>}
-        <input className="input_email_log" type="email" placeholder="Введите электронную почту" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <label htmlFor="username"><b>Имя пользователя </b></label>
+        {errors.username && <span style={{ color: "red" }}>{errors.username}</span>}
+        <input className="input_email_log" type="text" placeholder="Введите имя пользователя" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         <label htmlFor="password"><b>Пароль</b></label>
         {errors.password  && <span style={{color: "red"}}>{errors.password }</span>}
         <input className="input_password_log" type="password" placeholder="Введите пароль" name="password" value={password}  onChange={(e) => setPassword(e.target.value)}  required/>
@@ -92,6 +87,10 @@ export default function Login_() {
         <span className="error_django" style={{color: "red"}}>{message}</span>
         </form>
         <div class="container_sign">
+            <p>
+                <Link className="link_entrance" to="/login/passforg">Забыли пароль?</Link>
+            </p>
+            <br></br>
             <p>
                 Ещё не были зарегистрированы?
                 <Link class="link_entrance" to="/registr"> Зарегестрироваться</Link>

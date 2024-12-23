@@ -1,85 +1,255 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import "../styles/style_Room.css"
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "../styles/style_Room.css";
 
 export default function Room() {
-
-  const players = [
-    { name: 'Игрок 1', avatar: 'https://via.placeholder.com/150' },
-    { name: 'Игрок 2', avatar: 'https://via.placeholder.com/150' },
-    { name: 'Игрок 3', avatar: 'https://via.placeholder.com/150' },
-    { name: 'Игрок 4', avatar: 'https://via.placeholder.com/150' },
-  ];
-
     const { roomId } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const { state } = location;
 
-    const roomSettings = {
-        roomName: state?.name || 'Неизвестная комната',
-        maxPlayers: state?.player_count || 0,
+    const [roomSettings, setRoomSettings] = useState({
+        roomName: state?.name || '',
+        maxPlayers: 4,
         startingAmount: state?.init_score || 0,
         gameTime: state?.gameTime || 0,
         isPrivate: state?.is_private || false,
-    };
+        playersInvited: [],
+    });
 
-    const handleStartGame = () => {
-        setIsCounting(true); 
-    };
-
+    const [error, setError] = useState('');
     const [countdown, setCountdown] = useState(5);
     const [isCounting, setIsCounting] = useState(false);
+    const [showInviteModal, setShowInviteModal] = useState(false);
+    const [showExitConfirm, setShowExitConfirm] = useState(false);
 
-    useEffect(() => {
-        let timer;
-        if (isCounting && countdown > 0) {
-            timer = setInterval(() => {
-                setCountdown((prev) => prev - 1);
-            }, 1000);
-        } else if (countdown === 0) {
-            console.log('Игра началась!');
-            setIsCounting(false);
-            setCountdown(5);
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setRoomSettings((prevSettings) => ({
+            ...prevSettings,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+
+    const handlePlayerCountChange = (e) => {
+        const value = Math.min(4, Math.max(2, e.target.value)); // Минимум 2 игрока
+        setRoomSettings((prevSettings) => ({
+            ...prevSettings,
+            maxPlayers: value,
+        }));
+    };
+
+    const handleInvitePlayer = (player) => {
+        if (!roomSettings.playersInvited.includes(player.id) && roomSettings.playersInvited.length < roomSettings.maxPlayers - 1) {
+            setRoomSettings((prevState) => ({
+                ...prevState,
+                playersInvited: [...prevState.playersInvited, player.id],
+            }));
         }
-        return () => clearInterval(timer);
-    }, [isCounting, countdown]);
+        setShowInviteModal(false);
+    };
 
-  return (
-    <div className="room-container">
-        <div className="room-header">
-            <h1>{roomSettings.roomName}</h1>
-            <br></br>
-            <h2>Настройки игры</h2>
-        </div>
+    const toggleInviteModal = () => {
+        setShowInviteModal(!showInviteModal);
+    };
 
-        <div className="room-settings">
-            <ul>
-                <li>Максимальное количество игроков: {roomSettings.maxPlayers}</li>
-                <li>Начальная сумма: {roomSettings.startingAmount}</li>
-                <li>Время игры (мин): {roomSettings.gameTime}</li>
-                <li>Приватная комната: {roomSettings.isPrivate ? 'Да' : 'Нет'}</li>
-            </ul>
-        </div>
+    const handleExit = () => {
+        setShowExitConfirm(true);
+    };
 
-        <h2>Игроки</h2>
-        <div className="players-container">
-            {players.map((player, index) => (
-                <div key={index} className="player-card">
-                    <img src={player.avatar} alt={player.name} className="player-avatar" />
-                    <p>{player.name}</p>
+    const confirmExit = (option) => {
+        setShowExitConfirm(false);
+        if (option === "exit") {
+            navigate('/');
+        }
+    };
+
+    const handleStartGame = async () => {
+        setError('');
+
+        
+        if (roomSettings.playersInvited.length < 1) {
+            setError('Минимум 2 игрока для начала игры (включая вас).');
+            return;
+        }
+
+        if (!roomSettings.roomName) {
+            setError('Название комнаты обязательно.');
+            return;
+        }
+
+        setIsCounting(true);
+        setCountdown(5);
+
+        // Начинаем отсчет
+        const interval = setInterval(() => {
+            setCountdown((prevCountdown) => {
+                if (prevCountdown === 1) {
+                    clearInterval(interval);
+                    return 0;
+                }
+                return prevCountdown - 1;
+            });
+        }, 1000);
+
+        
+        setTimeout(async () => {
+            setIsCounting(false);
+            clearInterval(interval);
+            try {
+                const response = await axios.post('http://localhost:8000/api/v1/room/start/', {
+                    room_name: roomSettings.roomName,
+                    players: roomSettings.playersInvited,
+                    starting_amount: roomSettings.startingAmount,
+                    game_time: roomSettings.gameTime,
+                    is_private: roomSettings.isPrivate,
+                });
+
+                if (response && response.data && response.data.id) {
+                    navigate(`/room/${response.data.id}`, {
+                        state: {
+                            roomName: roomSettings.roomName,
+                            players: roomSettings.playersInvited,
+                        },
+                    });
+                } else {
+                    setError('Ошибка при создании комнаты.');
+                }
+            } catch (error) {
+                setError('Ошибка сервера при создании комнаты. Пожалуйста, попробуйте позже.');
+            }
+        }, 5000); 
+    };
+
+    return (
+        <div className="room-setup">
+            <div className="content_main_head">
+                <h1>{roomSettings.roomName ? roomSettings.roomName : "Создание новой комнаты"}</h1>
+                {error && <div className="error" style={{ color: 'red' }}>{error}</div>} {/* Ошибка отображается в красном */}
+                <button className="button_exit" onClick={handleExit}>Отмена</button>
+            </div>
+
+            <form className="setup_form">
+                <div className="form_group">
+                    <label>Название комнаты:</label>
+                    <input
+                        type="text"
+                        name="roomName"
+                        value={roomSettings.roomName}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
-            ))}
-        </div>
 
-        {isCounting ? (
-                <div>
-                    <h2>Обратный отсчет: {countdown}</h2>
+                <div className="form_group">
+                    <label>Максимальное количество игроков:</label>
+                    <input
+                        type="number"
+                        name="maxPlayers"
+                        value={roomSettings.maxPlayers}
+                        onChange={handlePlayerCountChange}
+                        min="2" 
+                        max="4"
+                        required
+                    />
                 </div>
-            ) : (
-                <button className="button_start_game" onClick={handleStartGame}>Начать игру</button>
+
+                <div className="form_group">
+                    <label>Начальная сумма:</label>
+                    <input
+                        type="number"
+                        name="startingAmount"
+                        value={roomSettings.startingAmount}
+                        onChange={handleChange}
+                        min="0"
+                        required
+                    />
+                </div>
+
+                <div className="form_group">
+                    <label>Время игры (мин):</label>
+                    <input
+                        type="number"
+                        name="gameTime"
+                        value={roomSettings.gameTime}
+                        onChange={handleChange}
+                        min="1"
+                        required
+                    />
+                </div>
+
+                <div className="form_group">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="isPrivate"
+                            checked={roomSettings.isPrivate}
+                            onChange={handleChange}
+                        />
+                        Приватная комната
+                    </label>
+                </div>
+
+                <button type="button" className="button_game_create" onClick={handleStartGame}>Создать игру</button>
+            </form>
+
+            <div className="players-container">
+                <h2>Игроки:</h2>
+                <br/>
+                <div className="player-slot">
+                    <span>Администратор: Вы</span>
+                </div>
+                
+                {roomSettings.playersInvited.map((id, index) => (
+                    <div key={index} className="player-slot">
+                        <span>Игрок {id}</span>
+                    </div>
+                ))}
+
+                {Array.from({ length: roomSettings.maxPlayers - 1 - roomSettings.playersInvited.length }).map((_, index) => (
+                    <div key={index} className="player-slot empty">
+                        <span>Свободное место</span>
+                        <button className="button_invite_player" onClick={toggleInviteModal}>Пригласить игрока</button>
+                    </div>
+                ))}
+            </div>
+
+            {showInviteModal && (
+                <div className="modal">
+                    <div className="modal_content">
+                        <h2>Доступные игроки</h2>
+                        <ul>
+                            {Array.from({ length: 6 }, (_, i) => (
+                                <li key={i + 1}>
+                                    Игрок {i + 1}
+                                    <button onClick={() => handleInvitePlayer(i + 1)}>Пригласить</button>
+                                </li>
+                            ))}
+                        </ul>
+                        <button onClick={toggleInviteModal}>Закрыть</button>
+                    </div>
+                </div>
             )}
-    </div>
-  )
+
+            {showExitConfirm && (
+                <div className="modal">
+                    <div className="modal_content">
+                        <h2>Подтвердите действие</h2>
+                        <p>Вы уверены, что хотите отменить создание комнаты?</p>
+                        <button className="button_exit" onClick={() => confirmExit("exit")}>В главное меню</button>
+                        <button className="button_exit" onClick={() => confirmExit("continue")}>Продолжить создание комнаты</button>
+                    </div>
+                </div>
+            )}
+
+            {isCounting && (
+                <div>
+                    <h2 className="countdown">Обратный отсчет: {countdown}</h2>
+                </div>
+            )}
+        </div>
+    );
 }
 
-export { Room }
+export { Room };

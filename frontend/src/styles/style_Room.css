@@ -1,76 +1,161 @@
-.room-container {
+.room-setup {
     background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 235, 235) 0%, rgb(191, 232, 249) 90%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.room-header {
+.content_main_head {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
 }
 
-.room-settings {
+.setup_form {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 20px; /* Отступ внизу формы */
 }
 
-.room-settings ul {
-    padding-left: 0; 
+.form_group {
+    margin-bottom: 15px; /* Отступ между полями формы */
+    width: 100%;
+}
+ 
+.form_group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.room-settings li {
-    margin-bottom: 10px; 
+.setup_form input[type="text"],
+.setup_form input[type="number"],
+.setup_form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.button_exit {
+    margin-top: 10px; /* Отступ сверху кнопки */
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button_exit:hover {
+    background-color: darkred;
 }
 
 .players-container {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 20px 0;
+    flex-direction: column; /* Вертикально располагаем игроков */
+    align-items: center;
+    margin: 20px 0; /* Отступ сверху и снизу контейнера игроков */
     width: 100%;
 }
 
-.player-card {
+.player-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
-    width: 120px;
-    text-align: center;
-    background-color: white;
-    margin-bottom: 20px; 
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 10px; /* Отступ между игроками */
 }
 
-.player-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+.empty {
+    background-color: #f9f9f9;
 }
 
-.button_start_game {
-    padding: 10px 20px;
+.button_invite_player {
+    padding: 5px 10px;
     background-color: orange;
     color: whitesmoke;
     font-weight: bold;
-    font-size: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.4s linear;
 }
 
-.button_start_game:hover {
-    color: crimson;
+.button_invite_player:hover {
+    background-color: crimson;
+}
+ 
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center; /* Центрируем текст */
+}
+
+.button_exit {
+    padding: 10px 15px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px; /* Отступ между кнопками */
+}
+
+.button_exit:hover {
+    background-color: darkred;
+}
+
+.countdown {
+    font-size: 24px; /* Увеличиваем размер текста отсчета */
+    font-weight: bold;
+    color: orange; /* Цвет отсчета */
+}
+
+.error {
+    color: red; /* Ошибка отображается в красном */
 }

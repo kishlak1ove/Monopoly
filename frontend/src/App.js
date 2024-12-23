@@ -12,6 +12,7 @@ import { Player } from "./components/Player"
 import { Room } from "./components/Room"
 import { Game } from "./components/Game"
 import { Search } from "./components/Search"
+import { ForgPass } from "./components/ForgPass"
 
 function App() {
 
@@ -23,14 +24,14 @@ function App() {
               <Route index element={<Main />} />
               <Route path='login' element={<Login_ />} />
               <Route path='registr' element={<Registr_ />} />
-              <Route path='create' element={<Create />} />
               <Route path='shop' element={<Shop />} />
               <Route path='achiev' element={<Achievements />} />
               <Route path='player' element={<Player />} />
               <Route path='*' element={<Notfound />} />
-              <Route path='room/:roomId/game' element={<Game />} />
-              <Route path='room/:roomId' element={<Room />} />
+              <Route path='room/game' element={<Game />} />
+              <Route path='room' element={<Room />} />
               <Route path='search' element={<Search />} />
+              <Route path='login/passforg' element={<ForgPass />} />
           </Route>
         </Routes>
     </div>
