@@ -33,7 +33,7 @@ export default function Room() {
     };
 
     const handlePlayerCountChange = (e) => {
-        const value = Math.min(4, Math.max(2, e.target.value)); // Минимум 2 игрока
+        const value = Math.min(4, Math.max(2, e.target.value)); 
         setRoomSettings((prevSettings) => ({
             ...prevSettings,
             maxPlayers: value,
@@ -79,10 +79,19 @@ export default function Room() {
             return;
         }
 
+        if (parseInt(roomSettings.startingAmount, 10) <= 0) {
+            setError('Начальная сумма должна быть положительной.');
+            return;
+        }
+
+        if (parseInt(roomSettings.gameTime, 10) <= 0) {
+            setError('Время игры должно быть положительным.');
+            return;
+        }
+
         setIsCounting(true);
         setCountdown(5);
 
-        // Начинаем отсчет
         const interval = setInterval(() => {
             setCountdown((prevCountdown) => {
                 if (prevCountdown === 1) {
@@ -98,7 +107,7 @@ export default function Room() {
             setIsCounting(false);
             clearInterval(interval);
             try {
-                const response = await axios.post('http://localhost:8000/api/v1/room/start/', {
+                const response = await axios.post('http://localhost:8000/api/room', {
                     room_name: roomSettings.roomName,
                     players: roomSettings.playersInvited,
                     starting_amount: roomSettings.startingAmount,
