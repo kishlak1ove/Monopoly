@@ -1,15 +1,18 @@
 from django.contrib.auth import login, logout, authenticate
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
-from rest_framework.decorators import api_view
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
 import json
 
 from .models import User
 from .serializers import UserSerializer
 
 @api_view(['POST'])
+@authentication_classes([JWTAuthentication])
 def login_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -19,7 +22,16 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return Response({'message': 'Success'}, status=200)
+            # создание токена (если используете JWT)
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'message': 'Success',
+                'user_id': user.id,
+                'access_token': str(refresh.access_token),
+                'refresh_token': str(refresh),
+                'username': user.username,
+                # другие данные пользователя
+            }, status=200)
         else:
             return Response({'message': 'Неверный логин или пароль'}, status=400)
     return Response({'message': 'Invalid request method'}, status=400)
@@ -27,8 +39,14 @@ def login_view(request):
 @api_view(['POST'])
 def logout_view(request):
     if request.method == 'POST':
-        logout(request)
-        return Response({'message': 'Logout success'}, status=200)
+        try:
+            data = json.loads(request.body)
+            refresh_token = data.get('refresh_token')
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({'message': 'Logout success'}, status=200)
+        except Exception as e:
+            return Response({'message': 'Invalid refresh token'}, status=400)
     return Response({'message': 'Invalid request method'}, status=400)
 
 @api_view(['POST'])
