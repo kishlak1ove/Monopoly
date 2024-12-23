@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import environ
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Указываем относительный путь к файлу .env
+env_path = BASE_DIR / 'docker' / 'env' / '.env.dev'
+
+# Загружаем .env
+env = environ.Env()
+environ.Env.read_env(env_file=env_path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -88,8 +96,12 @@ WSGI_APPLICATION = 'monopoly.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('POSTGRES_DB_NAME'),
+        'USER':  env('POSTGRES_DB_USER'),
+        'PASSWORD': env('POSTGRES_DB_PASSWORD'),
+        'HOST': 'postgres', # 'postgres'
+        'PORT': env('POSTGRES_DB_PORT'),
     }
 }
 
@@ -138,3 +150,14 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'usermanager.User'
+
+# Celery settings
+
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Moscow'  # UTC

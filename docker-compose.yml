@@ -27,9 +27,9 @@ services:
       POSTGRES_USER: postgres_user        
       POSTGRES_PASSWORD: 123                
       POSTGRES_DB: Monopoly_game            
-      POSTGRES_HOST: postgres                
+      POSTGRES_HOST: localhost                
       POSTGRES_DB_PORT: 5432                
-    working_dir: /usr/src/app/backend/django
+    working_dir: /usr/src/app/
     ports:
       - "8000:8000"  
     volumes:
@@ -57,7 +57,7 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: Monopoly_game
-      POSTGRES_HOST: localhost  
+      POSTGRES_HOST: postgres 
     ports:
       - "5432:5432"
     volumes:
@@ -104,7 +104,7 @@ services:
     volumes:
       - ./backend/django:/usr/src/app  
       - media:/app/media
-    command: celery -A celery_app worker --loglevel=info
+    command: celery -A backend.django.celery_app worker --loglevel=info
     depends_on:
       - redis
       - rabbitmq

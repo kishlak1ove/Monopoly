@@ -33,13 +33,16 @@ def register_view(request):
         data = json.loads(request.body)
         username = data.get('username')
         password = data.get('password')
+        password_confirm = data.get('password_more')
         email = data.get('email')
 
         is_exists = User.objects.filter(username=username).exists()
         if is_exists:
-            return Response({'message': 'Такой пользователь уже существует'}, status=400)
+            return Response({'message': 'Такой пользователь уже существует'}, status=status.HTTP_400_BAD_REQUEST)
         if not all([username, password, email]):
-            return Response({'message': 'Все поля обязательны'}, status=400)
+            return Response({'message': 'Все поля обязательны'}, status=status.HTTP_400_BAD_REQUEST)
+        if password != password_confirm:
+            return Response({'message':'Пароли не совпадают'}, status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.create_user(username, email, password)
         login(request, user)
