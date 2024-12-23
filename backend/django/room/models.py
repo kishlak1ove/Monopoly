@@ -17,6 +17,7 @@ class Room(models.Model):
     init_score = models.PositiveIntegerField(default=3000)
     is_private = models.BooleanField(default=True)
     player_count = models.PositiveIntegerField(default=4)
+    gametime = models.FloatField(default=30)
 
     def save(self, *args, **kwargs):
         if not self.name:
