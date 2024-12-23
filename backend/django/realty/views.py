@@ -1,9 +1,12 @@
 from rest_framework import viewsets, status
+from rest_framework.response import Response
 from drf_spectacular.views import extend_schema
 from drf_spectacular.utils import OpenApiResponse
+import json
 
 from .serializers import RealtySerializer
 from .models import Realty
+from .controllers import *
 
 @extend_schema(tags=['Realty'], methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 class RealtyViewSet(viewsets.ModelViewSet):
@@ -34,7 +37,15 @@ class RealtyViewSet(viewsets.ModelViewSet):
         },
     )
     def list(self, request, *args, **kwargs):
-        return super().list(request, args, kwargs)
+        data = json.loads(request.body)
+        game_id = data.get('game_id')
+
+        try:
+            response = list_realtys(game_id)
+            serialize = self.get_serializer(response).data
+            return Response(serialize, status=status.HTTP_200_OK)
+        except(Realty.DoesNotExist):
+            return Response({'err':'Недвижимости не найдены'}, status=status.HTTP_400_BAD_REQUEST)
 
     @extend_schema(
         description='Получение сведений о недвижимости по ID',

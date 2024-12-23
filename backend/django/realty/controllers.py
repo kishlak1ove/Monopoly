@@ -57,3 +57,7 @@ def delete_owner(realty):
     realty.owner = None
     realty.save()
     return {'message': 'Владелец удалён'}, status.HTTP_200_OK
+
+def list_realtys(game_id):
+    return Realty.objects.filter(game=game_id)
+    
