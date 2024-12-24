@@ -22,7 +22,7 @@ export default function Layout() {
                   </div>
                   <div class="buttons_header">
                       <Link class="header_button_" to="/search">Поиск игр</Link>
-                      <Link class="header_button_" to="/room">Создать игру</Link>
+                      <Link class="header_button_" to="/room/:roomId">Создать игру</Link>
                       <Link class="header_button" to="/shop">Магазин</Link>
                       <Link class="header_button" to="/achiev">Достижения</Link>
                       <Link class="img_player" to="/playerprof"><img src={player_img} width="40px" height="40px"></img></Link>

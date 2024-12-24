@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useAuth } from './AuthContext'; 
 import "../styles/style_Player.css";
+import userIcon from "../employ/online.png"
 
 export default function PlayerProfile() {
-    const [player, setPlayer] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const { auth } = useAuth(); 
 
-    useEffect(() => {
-        const fetchPlayerData = async () => {
-            try {
-                const response = await axios.get('http://localhost:8000/api/player');
-                setPlayer(response.data);
-            } catch (error) {
-                console.error("Ошибка при загрузке данных игрока:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPlayerData();
-    }, []);
-
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
-    if (!player) {
-        return <div>Ошибка: Игрок не найден.</div>;
+    if (!auth.isLoggedIn) {
+        return <div style={{ color: "red" }}>Ошибка: Пользователь не авторизован.</div>;
     }
 
     return (
@@ -37,46 +18,23 @@ export default function PlayerProfile() {
 
             <div className="profile_container">
                 <div className="player_info">
-                    <img 
-                        className="avatar" 
-                        src={player.avatar || 'https://via.placeholder.com/150'} 
-                        alt={`${player.username} Avatar`} 
-                    />
-                    <div className="player_details">
-                        <h2>
-                            {player.username} 
-                            <span style={{ color: 'gray' }}>
-                                ({player.user_id || 'ID не указан'})
-                            </span>
-                        </h2>
-                    </div>
+                    <img alt="User Icon" className="user_icon"  src={userIcon} />
+                    <h2>
+                        {auth.user.username} <span style={{ color: 'gray' }}>({auth.user.id})</span> 
+                    </h2>
                 </div>
 
                 <div className="skins_section">
                     <h2>Скины в наличии</h2>
                     <ul className="skin_list">
-                        {/* Показать значение по умолчанию, если скины не указаны */}
-                        {player.skinsOwned && player.skinsOwned.length > 0 ? (
-                            player.skinsOwned.map((skin, index) => (
-                                <li key={index} className="skin_item">{skin}</li>
-                            ))
-                        ) : (
-                            <li className="skin_item">Нет скинов в наличии</li>
-                        )}
+                        <li className="skin_item">Нет скинов в наличии</li>
                     </ul>
                 </div>
 
                 <div className="achievements_section">
                     <h2>Достижения</h2>
                     <ul className="achievement_list">
-                        {/* Показать значение по умолчанию при отсутствии достижений */}
-                        {player.achievements && player.achievements.length > 0 ? (
-                            player.achievements.map((ach) => (
-                                <li key={ach.id} className="achievement_item">{ach.title}</li>
-                            ))
-                        ) : (
-                            <li className="achievement_item">Нет достижений</li>
-                        )}
+                        <li className="achievement_item">Нет достижений</li>
                     </ul>
                 </div>
             </div>

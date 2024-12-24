@@ -4,7 +4,6 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { Login_ } from "./components/Login_";
 import { Registr_ } from "./components/Registr_";
-import { Create } from "./components/Create";
 import { Layout } from "./components/Layout";
 import { Shop } from "./components/Shop"
 import { Achievements } from "./components/Achievements"
@@ -28,8 +27,8 @@ function App() {
               <Route path='achiev' element={<Achievements />} />
               <Route path='playerprof' element={<PlayerProfile />} />
               <Route path='*' element={<Notfound />} />
-              <Route path='room/game' element={<Game />} />
-              <Route path='room' element={<Room />} />
+              <Route path='room/:roomId' element={<Room />} />
+              <Route path='room/:roomId/game' element={<Game />} />
               <Route path='search' element={<Search />} />
               <Route path='login/passforg' element={<ForgPass />} />
           </Route>

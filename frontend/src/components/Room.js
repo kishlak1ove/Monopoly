@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/style_Room.css";
+import Invite from './Invite'
 
 export default function Room() {
     const { roomId } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
-    const { state } = location;
 
     const [roomSettings, setRoomSettings] = useState({
-        roomName: state?.name || '',
+        roomName: location.state?.name || '',
         maxPlayers: 4,
-        startingAmount: state?.init_score || 0,
-        gameTime: state?.gameTime || 0,
-        isPrivate: state?.is_private || false,
+        startingAmount: location.state?.init_score || 0,
+        gameTime: location.state?.gameTime || 0,
+        isPrivate: location.state?.is_private || false,
         playersInvited: [],
     });
 
@@ -225,20 +225,7 @@ export default function Room() {
             </div>
 
             {showInviteModal && (
-                <div className="modal">
-                    <div className="modal_content">
-                        <h2>Доступные игроки</h2>
-                        <ul>
-                            {Array.from({ length: 6 }, (_, i) => (
-                                <li key={i + 1}>
-                                    Игрок {i + 1}
-                                    <button onClick={() => handleInvitePlayer(i + 1)}>Пригласить</button>
-                                </li>
-                            ))}
-                        </ul>
-                        <button onClick={toggleInviteModal}>Закрыть</button>
-                    </div>
-                </div>
+                 <Invite roomId={roomId} close={toggleInviteModal} />
             )}
 
             {showExitConfirm && (

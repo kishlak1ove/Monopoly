@@ -1,62 +1,96 @@
 .game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
     background: radial-gradient(circle at 18.7% 37.8%, rgb(249, 235, 235) 0%, rgb(191, 232, 249) 90%);
-    padding: 20px;
+    min-height: 100vh; /* Минимальная высота для покрытия всей страницы */
+    padding: 50px; /* Внутренние отступы */
+    display: flex; /* Flexbox для размещения элементов */
+    flex-direction: column;
+    align-items: center; /* Центрирование по горизонтали */
+}
+
+.game-header {
+    text-align: center; /* Центрирование текста */
+    margin-bottom: 20px; /* Отступ снизу */
 }
 
 .game-info {
-    margin-bottom: 20px;
+    display: flex; /* Flexbox для размещения информации */
+    justify-content: space-between; /* Пространство между элементами */
+    margin-bottom: 20px; /* Отступ снизу */
+    width: 100%; /* Задаём ширину для доступа к стилям */
+    max-width: 500px; /* Максимальная ширина контейнера */
+}
+
+.dice-result {
+    text-align: center; /* Центрирование текста */
+    margin: 20px 0; /* Отступ сверху и снизу */
+}
+
+.dice {
+    font-size: 2rem; /* Размер шрифта для чисел на кубиках */
+    display: flex; /* Flexbox для размещения элементов */
+    justify-content: center; /* Центрирование */
 }
 
 .game-board {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    position: relative;
+    position: relative; /* Относительное позиционирование для размещения игроков */
+    display: flex; /* Flexbox для расположения доски и игроков */
+    flex-direction: column; /* Вертикальная ориентация */
+    align-items: center; /* Центрирование по горизонтали */
+    margin-top: 20px; /* Отступ сверху */
 }
 
-.board {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    width: 100%;
-    height: 600px;
+.board-image {
+    width: 100%; /* Полная ширина */
+    max-width: 600px; /* Максимальная ширина изображения */
+    height: auto; /* Автоматическая высота */
 }
 
-.property {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #000;
+.player-positions {
+    position: absolute; /* Абсолютное позиционирование для игроков */
+    top: 20%; /* Размещение по вертикали */
+    display: flex; /* Flexbox для размещения фишек */
+    justify-content: space-between; /* Пространство между фишками */
+    width: 80%; /* Ширина пространства для игроков */
 }
 
-.player-icon {
-    position: absolute;
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 10px;
-    transition: left 0.5s ease;
+.player-position {
+    display: flex; /* Flexbox для расположения элементов игрока */
+    flex-direction: column; /* Вертикальная ориентация */
+    align-items: center; /* Центрирование */
 }
 
-.player-icon.active {
-    border: 2px solid yellow;
+.player-token {
+    width: 40px; /* Размер фишки */
+    height: auto; /* Автоматическая высота */
+    margin-bottom: 5px; /* Отступ снизу */
 }
 
-.dice-roll {
-    font-size: 24px;
-    margin-top: 10px;
-    color: orange;
+.game-footer {
+    text-align: center; /* Центрирование текста */
+    margin-top: 20px; /* Отступ сверху */
+    font-size: 0.8rem; /* Размер шрифта */
 }
 
-.game-over {
-    font-size: 36px;
-    color: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* Стили для кнопок */
+button {
+    padding: 10px 20px; /* Отступы для кнопок */
+    border: none; /* Без границы */
+    border-radius: 5px; /* Скругление краёв */
+    cursor: pointer; /* Курсор указателя */
+}
+
+button:hover {
+    opacity: 0.8; /* Снижение непрозрачности при наведении */
+}
+
+/* Для кнопки броска кубиков */
+.roll-button {
+    background-color: orange; /* Цвет фона */
+    color: white; /* Цвет текста */
+    font-weight: bold; /* Жирный шрифт */
+    transition: 0.4s linear; /* Плавный переход */
+}
+
+.roll-button:hover {
+    background-color: crimson; /* Цвет при наведении */
 }
