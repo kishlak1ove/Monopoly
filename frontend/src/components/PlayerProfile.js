@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../styles/style_Player.css";
 
-export default function Player() {
+export default function PlayerProfile() {
     const [player, setPlayer] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -37,27 +37,46 @@ export default function Player() {
 
             <div className="profile_container">
                 <div className="player_info">
-                    <img className="avatar" src={player.avatar || 'https://via.placeholder.com/150'} alt={`${player.username} Avatar`} />
+                    <img 
+                        className="avatar" 
+                        src={player.avatar || 'https://via.placeholder.com/150'} 
+                        alt={`${player.username} Avatar`} 
+                    />
                     <div className="player_details">
-                        <h2>{player.username} <span style={{ color: 'gray' }}>({player.user_id})</span></h2>
+                        <h2>
+                            {player.username} 
+                            <span style={{ color: 'gray' }}>
+                                ({player.user_id || 'ID не указан'})
+                            </span>
+                        </h2>
                     </div>
                 </div>
 
                 <div className="skins_section">
                     <h2>Скины в наличии</h2>
                     <ul className="skin_list">
-                        {player.skinsOwned && player.skinsOwned.map((skin, index) => (
-                            <li key={index} className="skin_item">{skin}</li>
-                        ))}
+                        {/* Показать значение по умолчанию, если скины не указаны */}
+                        {player.skinsOwned && player.skinsOwned.length > 0 ? (
+                            player.skinsOwned.map((skin, index) => (
+                                <li key={index} className="skin_item">{skin}</li>
+                            ))
+                        ) : (
+                            <li className="skin_item">Нет скинов в наличии</li>
+                        )}
                     </ul>
                 </div>
 
                 <div className="achievements_section">
                     <h2>Достижения</h2>
                     <ul className="achievement_list">
-                        {player.achievements && player.achievements.map((ach) => (
-                            <li key={ach.id} className="achievement_item">{ach.title}</li>
-                        ))}
+                        {/* Показать значение по умолчанию при отсутствии достижений */}
+                        {player.achievements && player.achievements.length > 0 ? (
+                            player.achievements.map((ach) => (
+                                <li key={ach.id} className="achievement_item">{ach.title}</li>
+                            ))
+                        ) : (
+                            <li className="achievement_item">Нет достижений</li>
+                        )}
                     </ul>
                 </div>
             </div>
@@ -65,4 +84,4 @@ export default function Player() {
     );
 }
 
-export { Player }
+export { PlayerProfile };

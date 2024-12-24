@@ -7,7 +7,9 @@ import discord_footer from "../employ/discord_footer.png"
 import { Link, Outlet } from "react-router-dom"
 import "../styles/style_Layout.css"
 import player_img from "../employ/player_icon.png"
+import { useAuth } from './AuthContext';
 export default function Layout() {
+    const { auth, logout } = useAuth();
   return (
     <><header>
           <div class="container_header">
@@ -23,10 +25,14 @@ export default function Layout() {
                       <Link class="header_button_" to="/room">Создать игру</Link>
                       <Link class="header_button" to="/shop">Магазин</Link>
                       <Link class="header_button" to="/achiev">Достижения</Link>
-                      <Link class="img_player" to="/player"><img src={player_img} width="40px" height="40px"></img></Link>
+                      <Link class="img_player" to="/playerprof"><img src={player_img} width="40px" height="40px"></img></Link>
                   </div>
                   <div class="login_button_header">
-                      <Link class="header_button_" to="/login">Войти</Link>
+                    {auth.isLoggedIn ? (
+                            <button className="header_button_" onClick={logout}>Выйти</button> 
+                        ) : (
+                            <Link className="header_button_" to="/login">Войти</Link> 
+                    )}
                   </div>
               </div>
           </div>

@@ -35,11 +35,13 @@
 
 .main_container{
 	margin-top: 5px;
-	margin-bottom: 5px;
-    background: radial-gradient(circle at 0.1% 53.8%, rgb(248, 217, 212) 0%, rgb(255, 164, 198) 100.2%);;
-	padding: 20px;
+    margin-bottom: 5px;
+    background: radial-gradient(circle at 0.1% 53.8%, rgb(248, 217, 212) 0%, rgb(255, 164, 198) 100.2%);
+    padding: 20px;
     border-radius: 11px;
     border: 3px solid whitesmoke;
+    width: 100%;
+    max-width: 450px;
 }
 
 .input_email{

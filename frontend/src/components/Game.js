@@ -1,107 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import React from 'react';
+import "../styles/style_Game.css";
+import c1 from "../employ/c1.png"
+import c2 from "../employ/c1.png"
+import c3 from "../employ/c1.png"
+import c4 from "../employ/c1.png"
+import c5 from "../employ/c1.png"
+import c6 from "../employ/c1.png"
+import board from "../employ/board.png"
+
 
 export default function Game() {
-
-    const BOARD_IMAGE = 'path/to/monopoly_board.jpg'; 
-
-    const playersInitialData = [
-        { id: 1, name: 'Игрок 1', avatar: 'https://via.placeholder.com/150', position: 0 },
-        { id: 2, name: 'Игрок 2', avatar: 'https://via.placeholder.com/150', position: 0 },
-        { id: 3, name: 'Игрок 3', avatar: 'https://via.placeholder.com/150', position: 0 },
-        { id: 4, name: 'Игрок 4', avatar: 'https://via.placeholder.com/150', position: 0 },
+    // Примерные данные для игроков
+    const players = [
+        { name: "Игрок 1", money: 1500, position: 0 },
+        { name: "Игрок 2", money: 1500, position: 0 },
+        { name: "Игрок 3", money: 1500, position: 0 },
+        { name: "Игрок 4", money: 1500, position: 0 },
     ];
 
-    const { roomId } = useParams();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { state } = location;
+    return (
+        <div className="game-container">
+            <div className="game-info">
+                <h1>Монополия</h1>
+                {/* Предполагаем, что игроки уже инициализированы */}
+                <h2>Игрок: {players[0].name} (Деньги: ${players[0].money})</h2>
+                <h3>Осталось времени: 30 минут</h3>
+                <button onClick={() => alert("Бросок кубика!")}>
+                    Бросить кубик
+                </button>
+                <div className="dice-roll">Вы бросили: 0</div>
+            </div>
 
-    const [players, setPlayers] = useState(playersInitialData);
-    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-    const [dieValue, setDieValue] = useState(null);
-    const [isGameRunning, setIsGameRunning] = useState(false);
-    const [timer, setTimer] = useState(0);
-
-    const roomSettings = {
-        roomName: state.roomName || 'Неизвестная комната',
-        maxPlayers: state.maxPlayers || 0,
-        startingAmount: state.startingAmount || 0,
-        gameTime: state.gameTime || 0,
-        isPrivate: state.isPrivate || false,
-    };
-
-    const rollDice = () => {
-        const rolledValue = Math.floor(Math.random() * 6) + 1;
-        setDieValue(rolledValue);
-        movePlayer(rolledValue);
-    };
-
-    const movePlayer = (steps) => {
-        setPlayers((prevPlayers) => {
-            const newPlayers = [...prevPlayers];
-            newPlayers[currentPlayerIndex].position += steps;
-            if (newPlayers[currentPlayerIndex].position >= 40) {
-                newPlayers[currentPlayerIndex].position -= 40;
-            }
-            return newPlayers;
-        });
-        setCurrentPlayerIndex((prevIndex) => (prevIndex + 1) % players.length);
-    };
-
-    const handleLeaveGame = () => {
-        const shouldLeave = window.confirm("Вы хотите покинуть игру?");
-        if (shouldLeave) {
-            navigate('/');
-        }
-    };
-
-    const startGame = () => {
-        setIsGameRunning(true);
-    };
-
-    useEffect(() => {
-        if (roomSettings.gameTime) {
-            setTimer(roomSettings.gameTime * 60);
-        }
-    }, [roomSettings.gameTime]);
-
-    useEffect(() => {
-        if (isGameRunning && timer > 0) {
-            const id = setInterval(() => {
-                setTimer((prev) => {
-                    if (prev <= 1) {
-                        clearInterval(id);
-                        alert("Время вышло!");
-                        setIsGameRunning(false);
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-            return () => clearInterval(id);
-        }
-    }, [isGameRunning, timer]);
-
-
-  return (
-    <div>
-        <h1>{roomSettings.roomName}</h1>
-        <h2>Игроки</h2>
-        <div>
-            {players.map(player => (
-                <div key={player.id}>
-                    <img src={player.avatar} alt={player.name} />
-                    <p>{player.name}, Позиция: {player.position}</p>
+            <div className="game-board">
+                <div className="board">
+                    {/* Отображение "недвижимости" как пустые клетки */}
+                    {Array.from({ length: 40 }).map((_, index) => (
+                        <div className="property" key={index}>
+                            <span>Участок {index + 1}</span>
+                        </div>
+                    ))}
                 </div>
-            ))}
+
+                <div className="players-container">
+                    {players.map((player, index) => (
+                        <div
+                            key={index}
+                            className={`player-icon`}
+                            style={{ left: `${player.position * 10}%` }}
+                        >
+                            {player.name}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="game-over" style={{ display: 'none' }}>Игра закончена!</div>
         </div>
-        <button onClick={startGame}>Начать игру</button>
-        {isGameRunning && <p>Игра в процессе... Время: {timer} секунд</p>}
-        <button onClick={rollDice} disabled={!isGameRunning}>Бросить кубик</button>
-        <button onClick={handleLeaveGame}>Покинуть игру</button>
-    </div>
-  )
+    );
 }
 
 export { Game }

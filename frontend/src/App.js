@@ -8,7 +8,7 @@ import { Create } from "./components/Create";
 import { Layout } from "./components/Layout";
 import { Shop } from "./components/Shop"
 import { Achievements } from "./components/Achievements"
-import { Player } from "./components/Player"
+import { PlayerProfile } from "./components/PlayerProfile"
 import { Room } from "./components/Room"
 import { Game } from "./components/Game"
 import { Search } from "./components/Search"
@@ -23,10 +23,10 @@ function App() {
           <Route path="/" element={<Layout />}>
               <Route index element={<Main />} />
               <Route path='login' element={<Login_ />} />
-              <Route path='registr' element={<Registr_ />} />
+              <Route path='register' element={<Registr_ />} />
               <Route path='shop' element={<Shop />} />
               <Route path='achiev' element={<Achievements />} />
-              <Route path='player' element={<Player />} />
+              <Route path='playerprof' element={<PlayerProfile />} />
               <Route path='*' element={<Notfound />} />
               <Route path='room/game' element={<Game />} />
               <Route path='room' element={<Room />} />
