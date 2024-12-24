@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setAuth({ isLoggedIn: false, user: null });
-        localStorage.removeItem('access_token'); // Удалите токены
+        localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user_id');
         localStorage.removeItem('username');
