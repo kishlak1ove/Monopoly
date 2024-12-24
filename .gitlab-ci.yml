@@ -5,32 +5,32 @@ stages:
 variables:
   REGISTRY: registry.gitlab.com
   IMAGE_NAME: $REGISTRY/bvlp/monopoly
-
+  DOCKER_DRIVER: overlay2 
 
 build_backend:
   stage: build
-  image: python:3.9 
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - echo "Building backend..."
-    - cd backend/django 
+    - cd backend/django
     - pip install -r requirements.txt
     - docker build -t $IMAGE_NAME:backend .
 
-
 build_frontend:
   stage: build
-  image: node:14 
+  image: node:14
   script:
     - echo "Building frontend..."
-    - cd frontend  
+    - cd frontend
     - npm install
     - npm run build
     - docker build -t $IMAGE_NAME:frontend .
 
-
 test_backend:
   stage: test
-  image: python:3.9 
+  image: python:3.9
   script:
     - echo "Running migrations..."
     - cd backend/django
@@ -38,11 +38,10 @@ test_backend:
     - echo "Running tests..."
     - python manage.py test
 
-
 test_frontend:
   stage: test
-  image: node:14  
+  image: node:14
   script:
     - echo "Running frontend tests..."
-    - cd frontend  
+    - cd frontend
     - npm test
