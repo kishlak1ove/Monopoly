@@ -1,0 +1,48 @@
+stages:
+  - build
+  - test
+
+variables:
+  REGISTRY: registry.gitlab.com
+  IMAGE_NAME: $REGISTRY/bvlp/monopoly
+
+
+build_backend:
+  stage: build
+  image: python:3.9 
+  script:
+    - echo "Building backend..."
+    - cd backend/django 
+    - pip install -r requirements.txt
+    - docker build -t $IMAGE_NAME:backend .
+
+
+build_frontend:
+  stage: build
+  image: node:14 
+  script:
+    - echo "Building frontend..."
+    - cd frontend  
+    - npm install
+    - npm run build
+    - docker build -t $IMAGE_NAME:frontend .
+
+
+test_backend:
+  stage: test
+  image: python:3.9 
+  script:
+    - echo "Running migrations..."
+    - cd backend/django
+    - python manage.py migrate
+    - echo "Running tests..."
+    - python manage.py test
+
+
+test_frontend:
+  stage: test
+  image: node:14  
+  script:
+    - echo "Running frontend tests..."
+    - cd frontend  
+    - npm test
