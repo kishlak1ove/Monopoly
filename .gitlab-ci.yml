@@ -1,47 +1,45 @@
+image: python:3.9-slim
+
+services:
+  - name: postgres:alpine
+    alias: postgres
+    variables:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: Monopoly_game
+
 stages:
   - build
   - test
+  - deploy
 
 variables:
-  REGISTRY: registry.gitlab.com
-  IMAGE_NAME: $REGISTRY/bvlp/monopoly
-  DOCKER_DRIVER: overlay2 
+  DATABASE_URL: postgres://postgres_user:123@postgres:5432/Monopoly_game
+  REDIS_URL: redis://redis:6379
 
-build_backend:
+before_script:
+  - pip install --upgrade pip
+  - pip install -r backend/django/requirements.txt
+
+build:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
   script:
-    - echo "Building backend..."
-    - cd backend/django
-    - pip install -r requirements.txt
-    - docker build -t $IMAGE_NAME:backend .
+    - echo "Building the application..."
+    - docker build -t myapp:latest ./backend/django
 
-build_frontend:
-  stage: build
-  image: node:14
-  script:
-    - echo "Building frontend..."
-    - cd frontend
-    - npm install
-    - npm run build
-    - docker build -t $IMAGE_NAME:frontend .
-
-test_backend:
+test:
   stage: test
-  image: python:3.9
   script:
     - echo "Running migrations..."
-    - cd backend/django
-    - python manage.py migrate
+    - python backend/django/manage.py migrate
     - echo "Running tests..."
-    - python manage.py test
+    - python backend/django/manage.py test
 
-test_frontend:
-  stage: test
-  image: node:14
+deploy:
+  stage: deploy
+  only:
+    - main
   script:
-    - echo "Running frontend tests..."
-    - cd frontend
-    - npm test
+    - echo "Deploying the application..."
+    - docker pull myapp:latest
+    - ssh user@your-server "docker run -d --rm --name backend-container -e DATABASE_URL=$DATABASE_URL myapp:latest"
