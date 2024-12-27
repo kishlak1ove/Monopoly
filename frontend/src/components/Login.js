@@ -4,7 +4,7 @@ import "../styles/style_Login.css";
 import axios from 'axios';
 import { useAuth  } from './AuthContext';
 
-export default function Login_() {
+export default function Login() {
     const { login } = useAuth(); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -82,4 +82,4 @@ export default function Login_() {
     );
 }
 
-export { Login_ }
+export { Login }

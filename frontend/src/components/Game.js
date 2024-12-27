@@ -11,7 +11,7 @@ import c6 from "../employ/c6.png";
 import board from "../employ/board.png";
 
 export default function Game() {
-    const [settings, setSettings] = useState({
+    const [settings] = useState({
         roomName: "Monopoly Room",
         players: ["Игрок 1", "Игрок 2", "Игрок 3"], // Пример игроков
         maxPlayers: 4,

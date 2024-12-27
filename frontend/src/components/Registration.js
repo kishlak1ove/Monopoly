@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import "../styles/style_Registr.css"; 
 import axios from 'axios';
 
-export default function Registr_() {
+export default function Registration() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -133,4 +133,4 @@ export default function Registr_() {
     );
 }
 
-export { Registr_ }
+export { Registration }

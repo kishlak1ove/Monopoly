@@ -25,7 +25,7 @@ export default function Layout() {
                       <Link class="header_button_" to="/room/:roomId">Создать игру</Link>
                       <Link class="header_button" to="/shop">Магазин</Link>
                       <Link class="header_button" to="/achiev">Достижения</Link>
-                      <Link class="img_player" to="/playerprof"><img src={player_img} width="40px" height="40px"></img></Link>
+                      <Link class="img_player" to="/playerprof"><img src={player_img} width="40px" height="40px" alt="player_profile"></img></Link>
                   </div>
                   <div class="login_button_header">
                     {auth.isLoggedIn ? (
@@ -45,7 +45,7 @@ export default function Layout() {
               <div class="container_footer">
                   <div class="line_footer">
                       <div class="logo_footer">
-                          <img src={footer_icon} width="70" height="70" />
+                          <img src={footer_icon} width="70" height="70" alt="footer"/>
                           <h5 class="name_logo_footer">Монополия — бесплатная онлайн-игра.</h5>
                       </div>
 
@@ -53,16 +53,16 @@ export default function Layout() {
                           <h3>Материалы</h3>
                           <div class="links_footer_list">
                               <ul class="links_list_">
-                                  <li><a class="link_widgets_footer" href="">Правила сайта</a></li>
-                                  <li><a class="link_widgets_footer" href="">Как тут играть</a></li>
-                                  <li><a class="link_widgets_footer" href="">О нарушениях</a></li>
-                                  <li><a class="link_widgets_footer" href="">О магазине</a></li>
-                                  <li><a class="link_widgets_footer" href="">Об инвентаре</a></li>
+                                  <li><Link class="link_widgets_footer" to="">Правила сайта</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">Как тут играть</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">О нарушениях</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">О магазине</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">Об инвентаре</Link></li>
                               </ul>
                               <ul class="links_list_">
-                                  <li><a class="link_widgets_footer" href="">О достижениях</a></li>
-                                  <li><a class="link_widgets_footer" href="">Документация</a></li>
-                                  <li><a class="link_widgets_footer" href="">Статус сайта</a></li>
+                                  <li><Link class="link_widgets_footer" to="">О достижениях</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">Документация</Link></li>
+                                  <li><Link class="link_widgets_footer" to="">Статус сайта</Link></li>
                               </ul>
                           </div>
                       </div>
