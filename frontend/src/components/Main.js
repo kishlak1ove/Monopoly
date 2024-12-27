@@ -22,7 +22,7 @@ export default function Main() {
                     <a class="button_game_main" href="/login">Начать игру</a>
                 </div>
                 <div class="img_main_center">
-                    <img class="img_main_logo" src={main_logo} width = "373" height="459" />
+                    <img class="img_main_logo" src={main_logo} width = "373" height="459" alt="Логотип" />
                 </div>
                 <div class="content_main_footer">
                     <h1 class="name_main_footer">Почему вам понравится играть у нас?</h1>
@@ -30,7 +30,7 @@ export default function Main() {
                         <div class="card_container">
                             <img class="img_container_main" src={free_main} width="180" height="180" alt="Бесплатно" />
                             <h2>Это бесплатно!</h2>
-                            <div>Просто <a href="">создайте аккаунт</a> и начните играть — никаких подписок и платежей.</div>
+                            <div>Просто <Link to="">создайте аккаунт</Link> и начните играть — никаких подписок и платежей.</div>
                         </div>
                         <div class="card_container">
                             <img class="img_container_main" src={modes_main} width="180" height="180" alt="Режимы" />

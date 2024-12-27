@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/style_Room.css";
@@ -38,16 +38,6 @@ export default function Room() {
             ...prevSettings,
             maxPlayers: value,
         }));
-    };
-
-    const handleInvitePlayer = (player) => {
-        if (!roomSettings.playersInvited.includes(player.id) && roomSettings.playersInvited.length < roomSettings.maxPlayers - 1) {
-            setRoomSettings((prevState) => ({
-                ...prevState,
-                playersInvited: [...prevState.playersInvited, player.id],
-            }));
-        }
-        setShowInviteModal(false);
     };
 
     const toggleInviteModal = () => {

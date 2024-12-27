@@ -21,7 +21,7 @@ export default function ProgressBar({ current, max, label, amount}) {
     </div>
     <div className='amount_container'>
       <div>{amount}</div>
-      <img src={money} height="50" width="50"></img>
+      <img src={money} height="50" width="50" alt="монеты"></img>
     </div>
     </div>
     </>

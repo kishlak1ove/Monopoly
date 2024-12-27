@@ -72,6 +72,8 @@ export default function Registration() {
                 password_more: passwordMore,
             });
 
+            console.log(response.data);
+
             setMessage('Регистрация успешна! Теперь вы можете войти.');
             setUsername('');
             setEmail('');
